@@ -1,0 +1,20 @@
+{
+  "name": "hoursofcode",
+  "description": "Personal blog & Portfolio",
+  "version": "0.0.1",
+  "keywords": [
+    "blog, portfolio"
+  ],
+  "maintainers": [
+    {
+      "name": "Boris Ryabov",
+      "email": "rv.boris@gmail.com",
+      "web": "http://hoursofcode.ru"
+    }
+  ],
+  "dependencies": {
+    "wintersmith": "~1.2.2",
+    "wintersmith-stylus": "~0.1.2"
+  },
+  "homepage": "http://hoursofcode.ru"
+}

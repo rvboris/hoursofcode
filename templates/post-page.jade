@@ -1,0 +1,46 @@
+extends layout
+
+block prepend body
+  body(style='overflow:hidden').page
+
+block pageSection
+  - var getPostName = function() { return page.parent.filename.split(path.sep)[1] }
+  - var getPostData = function() {
+  -     var post = contents.posts[getPostName()]['data.json'].metadata;
+  -     delete post.template;
+  -	    post.title = getPostName();
+  -     return post;
+  - }
+  - var post = getPostData();
+  - moment.lang('ru');
+
+  section.content
+    header
+      h1.title= post.title
+      time= moment(post.date, 'DD/MM/YYYY').format('D MMMM YYYY')
+    - if (post.shortText)
+      section.short-text= post.shortText
+    - if (post.fullText)
+      section.full-text= post.fullText
+    .page-footer
+      - if (post.topics)
+        .topics
+          h4 Темы:
+          ul
+            each topic, i in post.topics
+              li
+                a(href='#')= topic
+                - if (i < post.topics.length - 1)
+                  | ,
+      .social
+        h4 Поделиться:
+        a(href="#").icon-social-Vkontakte
+        a(href="#").icon-social-twitter
+        a(href="#").icon-social-google
+        a(href="#").icon-social-facebook
+
+    .comments#hypercomments_widget
+
+    script
+      _hcwp = window._hcwp || [];
+      _hcwp.push({ widget: 'Stream', widget_id: 6177, xid: '#{post.uuid}', language: 'ru', title: '#{post.title}' });

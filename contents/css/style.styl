@@ -1,0 +1,436 @@
+@import grid
+@import elusive
+@import grands
+@import nib
+
+border-box()
+  -webkit-box-sizing border-box
+  -moz-box-sizing border-box
+  box-sizing border-box
+
+lucida-font()
+  font-family 'Lucida Bright', Georgia, serif
+
+georgia-font()
+  font-family Georgia, Times, 'Times New Roman', serif
+
+helvetica-font()
+  font-family 'Helvetica Neue', Helvetica, Arial, sans-serif
+
+garde-font()
+  font-family 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif
+
+.slabtexted .slabtext
+  display -moz-inline-box
+  display inline-block
+  white-space nowrap
+
+.slabtextinactive .slabtext
+  display inline
+  white-space normal
+  font-size 1em !important
+  letter-spacing inherit !important
+  word-spacing inherit !important
+  *letter-spacing 0 !important
+  *word-spacing 0 !important
+
+.slabtextdone .slabtext
+  display block
+
+#fader
+  .loader
+    margin-top 10%
+    text-align center
+    lucida-font()
+    font-style italic
+    font-size 1.2rem
+
+nav#map
+  position fixed
+  bottom 10px
+  right 10px
+  z-index 1
+  width 64px
+  height 64px
+  border 3px solid #444
+  button
+    position absolute
+    display block
+    width 26px
+    height 26px
+    text-indent -9999px
+    background transparent
+    border 3px solid #444
+    cursor pointer
+    &:hover
+      border 0
+      background #444
+    &.blog
+      left 4px
+      top 4px
+    &.portfolio
+      top 34px
+      left 4px
+    &.contact
+      top 34px
+      right 4px
+    &.ascensorLinkActive
+      width 26px
+      height 26px
+      border 0
+      background #444
+      cursor default
+
+#ascensorBuilding
+  overflow hidden
+
+  section
+    .container
+      border-box()
+      border 3px solid #444
+      width 100%
+      height 100%
+      overflow auto
+
+      @media media-grid
+        grid()
+
+      @media media-phone
+        grid('p')
+        padding 10px
+
+      @media media-tablet
+        grid('t')
+        padding 15px
+
+      @media media-desktop
+        grid('d')
+        padding 20px
+  
+  #ascensorFloor1, #ascensorFloor2
+    background url('../img/blog-bg.jpg')
+
+    header
+      max-width 1140px
+      margin 0 auto
+
+      .headline, .subline
+        overflow hidden
+        h1, h2
+          margin 0
+          padding 0
+          display inline-block
+          font-family HelveticaNeue, Arial
+          -webkit-box-sizing border-box
+          -moz-box-sizing border-box
+          box-sizing border-box
+          font-weight normal
+
+        .icon-social-RSS
+          color #141413
+          text-decoration none
+          font-size 1.8em
+          padding 0 10px
+          &:hover
+            color #9F2BD7
+
+        h1
+          background #141413
+          color #E3DED8
+          padding 10px 20px
+
+          @media media-phone
+            font-size 40px
+
+          @media media-tablet
+            font-size 50px
+
+          @media media-desktop
+            font-size 60px
+        h2
+          background #FFF
+          color #141413
+          padding 5px 10px
+
+          @media media-phone
+            font-size 30px
+
+          @media media-tablet
+            font-size 40px
+
+          @media media-desktop
+            font-size 50px
+
+    section.content
+      background #FFF
+      max-width 1140px
+      min-height 100px
+      margin 0 auto
+      border-bottom 3px solid #141413
+      margin-bottom 30px
+
+      hr.separator
+        padding 0
+        border none
+        border-top medium double #141413
+        color #141413
+        text-align center
+        &:after
+          content "§"
+          display inline-block
+          position relative
+          top -0.7em
+          font-size 1.5em
+          padding 0 0.25em
+          background white
+
+      article
+        margin 20px 0
+        &:first-child
+          margin-top 0
+          
+        .left .wrap
+          h1
+            lucida-font()
+            margin 10px 20px
+            font-size 1.85em
+            font-weight lighter
+            font-style italic
+          .text 
+            margin 10px 20px 20px 20px
+            georgia-font()
+            font-size 1.22em
+            line-height 1.6em
+            p:first-line
+              text-indent 20px
+        .right
+          .wrap
+            padding 2%
+
+            time
+              display block
+              background #FF3333
+              color #FFF
+              width 100%
+              max-width 200px
+              height 150px
+              position relative
+              helvetica-font()
+              
+              .day
+                position absolute
+                top 10%
+                left 10%
+                height 75px
+                width 50%
+                font-size 500%
+                line-height 75px
+                text-align center
+              .month
+                left 10%
+                bottom 10%
+                position absolute
+                
+                width 50%
+                font-size 290%
+                text-align center
+
+              .year-wrap
+                right 0
+                top 0
+                bottom 0
+                position absolute
+                width 50%
+                
+                .year
+                  display block
+                  width 100%
+                  height 50%
+                  font-size 2.8em
+                  position absolute
+                  line-height 50%
+                  top 25%
+                  right 25%
+                  -webkit-transform: rotate(90deg)
+                  -moz-transform: rotate(90deg);
+                  -ms-transform: rotate(90deg);
+                  -o-transform: rotate(90deg);
+                  transform: rotate(90deg);
+
+            .comments
+              margin 20px 0
+              a
+                garde-font()
+                font-style italic
+                color #000
+                &:visited
+                  color #000
+                &:hover
+                  color #FF3333
+                  text-decoration none
+
+            .topics
+              h4, a, span
+                garde-font()
+                font-weight normal
+              h4
+                font-size 1.2em
+                margin 10px 0
+              ul
+                list-style none
+                padding 0
+                margin 0
+                margin-left 10px
+                display inline
+                li
+                  display inline
+                  a
+                    color #000
+                    font-style italic
+                    &:visited
+                      color #000
+                    &:hover
+                      color #FF3333
+                      text-decoration none
+
+            .social
+              margin-top 30px
+              h4
+                garde-font()
+                font-weight normal
+                font-size 1.2em
+                margin 10px 0
+              a
+                text-align center
+                color #000
+                text-decoration none
+                font-size 2em
+                display inline-block
+                width 25%
+                max-width 40px
+                height 40px
+                line-height 40px
+                &:hover
+                  color #FF3333
+    footer
+      background #141413
+      max-width 1140px
+      margin 0 auto
+      height 50px
+      line-height 50px
+      garde-font()
+
+      .blog-nav
+        button, a
+          color #FFF
+          background transparent
+          border 0
+          text-decoration none
+          &:hover
+            color #FF3333
+
+        button
+          margin-right 20px
+      .menu menu
+        list-style none
+        padding 0
+        margin 0
+        clearfix()
+        li
+          display block
+          float left
+          color #FFF
+          height 50px
+          background #FF3333
+          &.first
+            padding-left 20px
+          &.last
+            padding-right 20px
+          button
+            border 0
+            color #FFF
+            background transparent
+            &:hover, &.ascensorLinkActive
+              color #000
+            &.ascensorLinkActive
+              cursor default
+
+      .copyrights
+        color #FFF
+        text-align right
+        padding-right 20px
+
+  #ascensorFloor2
+    .content
+      padding 10px 0
+      header
+        h1.title
+          margin 0
+          padding 0 20px
+          font-size 3em
+          lucida-font()
+          font-weight normal
+        time
+          color #8C8C8C
+          padding 0 20px
+          font-size 1.4em
+          font-style italic
+          lucida-font()
+      section.short-text, section.full-text
+        padding 15px 20px
+        font-size 1.5em
+        georgia-font()
+        font-size 1.22em
+        line-height 1.6em
+        p:first-line
+          text-indent 20px
+      .page-footer
+        text-align right
+        padding 0 20px
+        clearfix()
+        .social
+          float right
+          width 250px
+          h4
+            garde-font()
+            font-weight normal
+            font-size 1.2em
+            display inline-block
+            height 33px
+            float left
+            margin 0
+            padding-top 5px
+          a
+            color #000
+            text-decoration none
+            font-size 2em
+            display inline-block
+            height 38px
+            &:hover
+              color #FF3333
+        .topics
+          float left
+          h4
+            garde-font()
+            font-weight normal
+            font-size 1.2em
+            display inline
+            padding-right 10px
+          ul
+            display inline
+            list-style none
+            padding 0
+            margin 0
+            li
+              display inline
+              a
+                color #000
+                font-style italic
+
+                &:visited
+                  color #000
+                &:hover
+                  color #FF3333
+                  text-decoration none
+      .comments
+        margin 20px

@@ -1,0 +1,63 @@
+!!! 5
+html
+  block head
+    head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+      title Blog and Portfolio
+      meta(name='description', content='')
+      meta(name='viewport', content='user-scalable=0,width=device-width,initial-scale=1,maximum-scale=1')
+
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.min.css')
+      link(rel='stylesheet', href='/css/style.css')
+
+  block body
+    #fader(style='position:fixed;top:0;bottom:0;left:0;right:0;z-index:9999;background:#FFF')
+      .loader Пожалуйста подождите...
+
+    block nav
+      nav#map
+        button.ascensorLink.ascensorLink1.blog Блог
+        button.ascensorLink.ascensorLink3.portfolio Портфолио
+        button.ascensorLink.ascensorLink4.contact Контакты
+  
+    #ascensorBuilding
+      section
+        .container
+          block indexSection
+            header
+              .row
+                div.col.headline
+                  h1 HoursOfCode
+              .row
+                .col.subline
+                  h2 Блог
+                  a(href='#').icon-social-RSS
+            section.content
+              .paginator
+            include main-footer
+      section
+        .container
+            header
+              .row
+                div.col.headline
+                  h1 HoursOfCode
+              .row
+                .col.subline
+                  h2 Блог
+                  a(href='#').icon-social-RSS
+            block pageSection
+              section.content
+            include main-footer
+      section
+        .container
+          block portfolioSection
+            | Portfolio page
+      section
+        .container
+          block contactSection
+            | Contact page
+
+    include handlebars
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js', data-main='/js/app')

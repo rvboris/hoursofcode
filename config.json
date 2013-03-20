@@ -1,0 +1,16 @@
+{
+    "output": "./public",
+    "locals": {
+        "url": "http://localhost:8080",
+        "name": "The Wintersmith's blog",
+        "owner": "Boris Ryabov"
+    },
+    "plugins": [
+        "./node_modules/wintersmith-stylus",
+        "./node_modules/wintersmith-json"
+    ],
+    "require": [
+    	"path",
+        "lodash"
+    ]
+}
