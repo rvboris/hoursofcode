@@ -59,21 +59,24 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		return deferred.promise();
 	};
 
-	Blog.prototype.getPost = function(postUrl, callback) {
+	Blog.prototype.getPost = function(postUrl) {
 		var postName = _.compact(postUrl.split('/'))[1];
+		var deferred = $.Deferred();
 
 		if (_.isNull(this.postsCache)) {
 			this.postsCache = [];
 		}
 
 		if (this.postsCache[postName]) {
-			callback(this.postsCache[postName]);
+			deferred.resolve(postUrl, this.postsCache[postName]);
 		} else {
 			$.getJSON(postUrl + 'data.json').done(_.bind(function(post) {
 				this.postsCache[postName] = post;
-				callback(this.postsCache[postName]);
+				deferred.resolve(postUrl, this.postsCache[postName]);
 			}, this));
 		}
+
+		return deferred.promise();
 	};
 
 	Blog.prototype.displayPosts = function(page, callback) {
@@ -90,24 +93,24 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			}
 		}, this));
 
-		_.each(posts, function(postInfo) {
-			var postUrl = postInfo[0];
-
-			this.getPost(postUrl, _.bind(function(post) {
-				renderedPosts.push(this.postTemplate({ url: postUrl, post: post }));
-				renderPosts();
-			}, this));
+		var requests = _.map(posts, function(postInfo) {
+			return this.getPost(postInfo[0]);
 		}, this);
+
+		$.when.apply(requests).done(_.bind(function () {
+			_.each(requests, function(request) {
+				request.done(_.bind(function(postUrl, post) {
+					renderedPosts.push(this.postTemplate({ url: postUrl, post: post }));
+					renderPosts();
+				}, this));
+			}, this);
+		}, this));
 	};
 
 	Blog.prototype.displayPost = function(postUrl, callback) {
-		this.getPost(postUrl, _.bind(function(post) {
+		this.getPost(postUrl).done(_.bind(function(postUrl, post) {
 			$('#ascensorFloor2 section.content').html(this.fullPostTemplate({ url: postUrl, post: post }));
-
-			if (!post) {
-				return callback(false);
-			}
-
+			
 			HC.widget("Stream", {
 				widget_id: 6177,
 				xid: post.uuid,
