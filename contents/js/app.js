@@ -82,35 +82,38 @@ define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'hypercomments'
 
 	    			console.log(num);
 	    		},
-	    		'on': function() {
-	    			if (blog) {
-	    				ascensor.setFloorByHash('blog');
-	    				return;
+	    		'on': function(next) {
+	    			if (!_.isUndefined(blog)) {
+	    				return ascensor.setFloorByHash('blog');
 	    			}
 
 	    			blog = new Blog();
 
 	    			blog.init().done(function() {
 	    				ascensor.setFloorByHash('blog');
+	    				next();
 	    			});
 	    		}
 	    	},
 	    	'/page': {
-	    		'/:name': function(postName) {
-	    			blog.displayPost(postName, null, function(result) {
-	    				if (result) {
-	    					ascensor.setFloorByHash('page');
-	    				} else {
+	    		'/:name': function(postName, next) {
+	    			blog.displayPost('/posts/' + postName + '/', function(result) {
+			    		if (result) {
+			    			ascensor.setFloorByHash('page');
+			    		} else {
+			    			ascensor.setFloorByHash('blog');
+			    		}
 
-	    				}
-	    			});
+			    		next();
+		    		});
 	    		},
-	    		on: function(postName) {
-	    			blog = new Blog();
+	    		on: function(postName, next) {
+	    			if (!_.isUndefined(blog)) {
+	    				return next();
+	    			}
 
-	    			blog.init().done(function() {
-	    				ascensor.setFloorByHash('page');
-	    			});
+	    			blog = new Blog();
+	    			blog.init().done(next);
 	    		}
 	    	},
 	    	'/portfolio': function() {
@@ -121,7 +124,7 @@ define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'hypercomments'
 	    	}
 	    };
 
-	    router = Router(routes).configure({ recurse: 'forward' }).init('/' + pageClass);
+	    router = Router(routes).configure({ recurse: 'forward', async: true }).init('/' + pageClass);
 
 	    Registry.set('router', router);
 

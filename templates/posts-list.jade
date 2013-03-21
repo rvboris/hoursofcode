@@ -1,6 +1,6 @@
 - var posts, topics, result;
 
-- posts = _.chain(contents.posts._.directories).map(function(post) { return post['data.json'] }).sortBy(function(post) { return -post.metadata.date }).value();
+- posts = _.chain(contents.posts._.directories).map(function(post) { return post['data.json'] }).sortBy(function(post) { return -moment(post.metadata.date, 'DD/MM/YYYY').unix() }).value();
 - topics = _.reduce(posts, function(topics, post) {
 -     return topics.concat(post.metadata.topics || []);
 - }, []);

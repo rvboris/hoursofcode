@@ -15,9 +15,10 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		$('#ascensorFloor1 section.content').on('click', 'a.more', $.proxy(function(e) {
 			e.preventDefault();
 
-			var postName = _.compact($(e.currentTarget).attr('href').split('/'))[1];
+			var postUrl = $(e.currentTarget).attr('href');
+			var postName = _.compact(postUrl.split('/'))[1];
 
-			this.displayPost(postName, this.postsCache, function(result, post) {
+			this.displayPost(postUrl, function(result, post) {
 				if (result) {
 					Registry.get('router').setRoute('/page/' + postName);
 				} else {
@@ -30,7 +31,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 	Blog.prototype.init = function() {
 		var deferred = $.Deferred();
 
-		$.get('/posts-list.json').done($.proxy(function(data) {
+		$.getJSON('/posts-list.json').done($.proxy(function(data) {
 			this.topicsList = data.topics;
 			this.postsList = data.posts;
 
@@ -48,7 +49,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 				});
 			}
 
-			this.getPosts(1, $.proxy(function() {
+			this.displayPosts(1, $.proxy(function() {
 				deferred.resolve();
 				this.visuals();
 			}, this));
@@ -58,18 +59,30 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		return deferred.promise();
 	};
 
-	Blog.prototype.getPosts = function(page, callback) {
+	Blog.prototype.getPost = function(postUrl, callback) {
+		var postName = _.compact(postUrl.split('/'))[1];
+
+		if (_.isNull(this.postsCache)) {
+			this.postsCache = [];
+		}
+
+		if (this.postsCache[postName]) {
+			callback(this.postsCache[postName]);
+		} else {
+			$.getJSON(postUrl + 'data.json').done(_.bind(function(post) {
+				this.postsCache[postName] = post;
+				callback(this.postsCache[postName]);
+			}, this));
+		}
+	};
+
+	Blog.prototype.displayPosts = function(page, callback) {
 		page--;
 
 		var posts = this.postsList.slice(page * this.options.postsPerPage, (page * this.options.postsPerPage) + this.options.postsPerPage);
-
 		var renderedPosts = [];
 
-		var requests = _.map(posts, function(postInfo) {
-			return $.ajax(postInfo[0] + 'data.json', { dataType: 'json' });
-		});
-
-		var renderPosts = _.after(requests.length, $.proxy(function() {
+		var renderPosts = _.after(_.size(posts), _.bind(function() {
 			$('#ascensorFloor1 section.content').html(renderedPosts.join(this.postSeparatorTemplate()));
 
 			if (_.isFunction(callback)) {
@@ -77,48 +90,35 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			}
 		}, this));
 
-		$.when.apply(requests).done($.proxy(function() {
-			this.postsCache = [];
+		_.each(posts, function(postInfo) {
+			var postUrl = postInfo[0];
 
-			_.forEach(requests, $.proxy(function(request) {
-				request.done($.proxy(function(post) {
-					this.postsCache.push(post);
-					renderedPosts.push(this.postTemplate(post));
-					renderPosts();
-				}, this));
+			this.getPost(postUrl, _.bind(function(post) {
+				renderedPosts.push(this.postTemplate({ url: postUrl, post: post }));
+				renderPosts();
 			}, this));
-		}, this));
-
-		callback();
+		}, this);
 	};
 
+	Blog.prototype.displayPost = function(postUrl, callback) {
+		this.getPost(postUrl, _.bind(function(post) {
+			$('#ascensorFloor2 section.content').html(this.fullPostTemplate({ url: postUrl, post: post }));
 
-	Blog.prototype.displayPost = function(postName, postsCache, callback) {
-		var postToRender;
+			if (!post) {
+				return callback(false);
+			}
 
-		if (_.isArray(postsCache)) {
-			postToRender = _.filter(this.postsCache, function(post) { return post.title === postName })[0] || false;
-		} else {
-			postToRender = null;
-		}
-
-		if (postToRender) {
-			$('#ascensorFloor2 section.content').html(this.fullPostTemplate(postToRender));
 			HC.widget("Stream", {
 				widget_id: 6177,
-				xid: postToRender.uuid,
+				xid: post.uuid,
 				language: 'ru',
-				title: postToRender.title,
+				title: post.title,
 				CSS_READY: 1,
 				callback: function() {
-					if (_.isFunction(callback)) {
-						callback(true);
-					}
+					callback(true);
 				}
 			});
-		} else if (_.isFunction(callback)) {
-			callback(false);
-		}
+		}, this));
 	};
 
 	Blog.prototype.visuals = function() {

@@ -7,7 +7,7 @@
     },
     "plugins": [
         "./node_modules/wintersmith-stylus",
-        "./node_modules/wintersmith-json"
+        "./node_modules/wintersmith-data-json"
     ],
     "require": [
     	"path",

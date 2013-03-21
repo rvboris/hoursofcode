@@ -1,8 +1,6 @@
-- var getPostName = function() { return page.parent.filename.split(path.sep)[1] }
 - var getPostData = function() {
--     var post = contents.posts[getPostName()]['data.json'].metadata;
+-     var post = contents.posts[page.parent.filename.split(path.sep)[1]]['data.json'].metadata;
 -     delete post.template;
--	  post.title = getPostName();
 -     return post;
 - }
 

@@ -13,8 +13,11 @@
     }
   ],
   "dependencies": {
-    "wintersmith": "~1.2.2",
-    "wintersmith-stylus": "~0.1.2"
+    "wintersmith-stylus": "~0.1.2",
+    "wintersmith-data-json": "~0.0.2"
+  },
+  "scripts": {
+    "preinstall": "npm i -g wintersmith lodash"
   },
   "homepage": "http://hoursofcode.ru"
 }

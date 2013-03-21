@@ -2,30 +2,30 @@ script(type='text/x-handlebars-template')#post-template
   article.row
     .col-d-4-5.col-t-2-3.left
       .wrap
-        h1 {{title}}
+        h1 {{post.title}}
         .text
-          | {{shortText}}
-          | {{#if fullText}}
-          a(href='/posts/{{title}}/').more Подробнее...
+          | {{post.shortText}}
+          | {{#if post.fullText}}
+          a(href='{{url}}').more Подробнее...
           | {{/if}}
     .col-d-1-5.col-t-1-3.right
       .wrap
         time
-          .day {{moment date 'DD'}}
-          .month {{moment date 'MMM'}}
+          .day {{moment post.date 'DD'}}
+          .month {{moment post.date 'MMM'}}
           .year-wrap
-            .year {{moment date 'YYYY'}}
+            .year {{moment post.date 'YYYY'}}
         .comments
           a(href="#") Комментарии (5)
 
-        {{#if topics}}
+        {{#if post.topics}}
         .topics
           h4 Темы
           ul
-            | {{#each topics}}
+            | {{#each post.topics}}
             li
               a(href="#") {{this}}
-              | {{#notLast ../topics this}}
+              | {{#notLast ../post.topics this}}
               span ,
               | {{/notLast}}
             | {{/each}}
@@ -43,23 +43,23 @@ script(type='text/x-handlebars-template')#post-separator-template
 
 script(type='text/x-handlebars-template')#full-post-template
   header
-    h1.title {{title}}
-    time {{moment date 'D MMMM YYYY'}}
-    | {{#if shortText}}
-    section.short-text {{shortText}}
+    h1.title {{post.title}}
+    time {{moment post.date 'D MMMM YYYY'}}
+    | {{#if post.shortText}}
+    section.short-text {{post.shortText}}
     | {{/if}}
-    | {{#if fullText}}
-    section.full-text {{fullText}}
+    | {{#if post.fullText}}
+    section.full-text {{post.fullText}}
     | {{/if}}
   .page-footer
-    | {{#if topics}}
+    | {{#if post.topics}}
     .topics
       h4 Темы:
       ul
-        | {{#each topics}}
+        | {{#each post.topics}}
         li
           a(href='#') {{this}}
-          | {{#notLast ../topics this}}
+          | {{#notLast ../post.topics this}}
           span ,
           | {{/notLast}}
         | {{/each}}
