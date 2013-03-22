@@ -36,7 +36,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			this.topicsList = data.topics;
 			this.postsList = data.posts;
 
-			this.displayPosts(1, _.bind(function() {
+			this.displayPosts(1, null, _.bind(function() {
 				deferred.resolve();
 			}, this));
 		}, this));
@@ -52,12 +52,9 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			currentPage: currentPage || 1,
 			hrefTextPrefix: '#/blog/page/',
 			prevText: '&larr;',
-			nextText: '&rarr;',
-			onPageClick: _.bind(function(page) {
-				Registry.get('router').setRoute('/blog/page/' + page);
-			}, this)
+			nextText: '&rarr;'
 		});
-	}
+	};
 
 	Blog.prototype.getPost = function(postUrl) {
 		var postName = _.compact(postUrl.split('/'))[1];
@@ -79,11 +76,28 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		return deferred.promise();
 	};
 
-	Blog.prototype.displayPosts = function(page, callback) {
+	Blog.prototype.displayPosts = function(page, topic, callback) {
 		page--;
 
-		var posts = this.postsList.slice(page * this.options.postsPerPage, (page * this.options.postsPerPage) + this.options.postsPerPage);
 		var renderedPosts = [];
+		var posts;
+
+		if (!_.isNull(topic)) {
+			var topicIdx = _.indexOf(this.topicsList, topic);
+			var posts = _.filter(this.postsList, function(postListItem) {
+				return _.indexOf(postListItem[1], topicIdx) >= 0;
+			});
+		} else {
+			posts = this.postsList;
+		}
+
+		var postsCount = _.size(posts);
+
+		if (postsCount === 0) {
+			return callback(false);
+		} else if (postsCount > this.options.postsPerPage) {
+			posts = posts.slice(page * this.options.postsPerPage, (page * this.options.postsPerPage) + this.options.postsPerPage);
+		}
 
 		var renderPosts = _.after(_.size(posts), _.bind(function() {
 			$('#ascensorFloor1 section.content').html(renderedPosts.join(this.postSeparatorTemplate()) + this.postPaginatorTemplate());

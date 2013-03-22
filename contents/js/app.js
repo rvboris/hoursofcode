@@ -71,24 +71,34 @@ define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'hypercomments'
 	        }
 	    }).data('ascensor');
 
-	    var blog, page, portfolio, contact;
+	    var blog, portfolio, contact;
 
 	    var routes = {
 	    	'/blog': {
-	    		'/page/:num': function(pageNum, next) {
-	    			blog.displayPosts(pageNum, _.bind(function() {
-	    				next();
-	    			}, this));
+	    		'/page/:num': function(page, next) {
+	    			blog.displayPosts(page, null, next);
 	    		},
-	    		'/tag/:tag': {
-	    			'/page/:num': function() {
-
+	    		'/topic/:topic': {
+	    			'/page/:num': function(topic, page, next) {
+	    				blog.displayPosts(page, topic, next);
 	    			},
-	    			on: function() {
+	    			on: function(topic, next) {
+		    			if (_.isUndefined(blog)) {
+		    				blog = new Blog();
+		    				blog.init().done(function() {
+		    					blog.displayPosts(1, topic, next);
+		    				});
+		    				return;
+		    			}
 
+		    			blog.displayPosts(1, topic, next);
 	    			}
 	    		},
-	    		'on': function(pageNum, next) {
+	    		'on': function() {
+	    			var next = _.find(arguments, function(arg) {
+	    				return _.isFunction(arg);
+	    			});
+
 	    			if (!_.isUndefined(blog)) {
 	    				ascensor.setFloorByHash('blog');
 	    				return next();
