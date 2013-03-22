@@ -10,6 +10,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 
 		this.postTemplate = Handlebars.compile($('#post-template').html());
 		this.postSeparatorTemplate = Handlebars.compile($('#post-separator-template').html());
+		this.postPaginatorTemplate = Handlebars.compile($('#post-paginator-template').html());
 		this.fullPostTemplate = Handlebars.compile($('#full-post-template').html());
 
 		$('#ascensorFloor1 section.content').on('click', 'a.more', $.proxy(function(e) {
@@ -31,33 +32,29 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 	Blog.prototype.init = function() {
 		var deferred = $.Deferred();
 
-		$.getJSON('/posts-list.json').done($.proxy(function(data) {
+		$.getJSON('/posts-list.json').done(_.bind(function(data) {
 			this.topicsList = data.topics;
 			this.postsList = data.posts;
 
-			if (this.postsList.length > this.options.postsPerPage) {
-				$('.paginator').pagination({
-					items: this.postsList.length,
-					itemsOnPage: this.options.postsPerPage,
-					cssStyle: 'light-theme',
-					hrefTextPrefix: '#/blog/page/',
-					onPageClick: $.proxy(function(page) {
-						this.getPosts(page, $.proxy(function() {
-							this.visuals();
-						}, this));
-					})
-				});
-			}
-
-			this.displayPosts(1, $.proxy(function() {
+			this.displayPosts(1, _.bind(function() {
 				deferred.resolve();
-				this.visuals();
 			}, this));
-
 		}, this));
 
 		return deferred.promise();
 	};
+
+	Blog.prototype.paginator = function() {
+		$('#ascensorFloor1 .paginator').pagination({
+			items: this.postsList.length,
+			itemsOnPage: this.options.postsPerPage,
+			cssStyle: 'light-theme',
+			hrefTextPrefix: '#/blog/page/',
+			onPageClick: _.bind(function(page) {
+				Registry.get('router').setRoute('/blog/page/' + page);
+			}, this)
+		});
+	}
 
 	Blog.prototype.getPost = function(postUrl) {
 		var postName = _.compact(postUrl.split('/'))[1];
@@ -86,8 +83,14 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		var renderedPosts = [];
 
 		var renderPosts = _.after(_.size(posts), _.bind(function() {
-			$('#ascensorFloor1 section.content').html(renderedPosts.join(this.postSeparatorTemplate()));
+			$('#ascensorFloor1 section.content').html(renderedPosts.join(this.postSeparatorTemplate()) + this.postPaginatorTemplate());
 
+			if (this.postsList.length > this.options.postsPerPage) {
+				this.paginator();
+			}
+
+			this.visuals();
+			
 			if (_.isFunction(callback)) {
 				callback();
 			}
@@ -97,12 +100,10 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			return this.getPost(postInfo[0]);
 		}, this);
 
-		$.when.apply(requests).done(_.bind(function () {
-			_.each(requests, function(request) {
-				request.done(_.bind(function(postUrl, post) {
-					renderedPosts.push(this.postTemplate({ url: postUrl, post: post }));
-					renderPosts();
-				}, this));
+		$.when.apply($, requests).done(_.bind(function () {
+			_.each(arguments, function(result) {
+				renderedPosts.push(this.postTemplate({ url: result[0], post: result[1] }));
+				renderPosts();
 			}, this);
 		}, this));
 	};
@@ -111,17 +112,33 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		this.getPost(postUrl).done(_.bind(function(postUrl, post) {
 			$('#ascensorFloor2 section.content').html(this.fullPostTemplate({ url: postUrl, post: post }));
 			
-			HC.widget("Stream", {
+			this.displayCommentsStream(post).done(function() {
+				callback(true);
+			}).fail(function() {
+				callback(false);
+			});
+		}, this)).fail(function() {
+			callback(false);
+		});
+	};
+
+	Blog.prototype.displayCommentsStream = function(post) {
+		var deferred = $.Deferred();
+
+		try {
+			HC.widget('Stream', {
 				widget_id: 6177,
 				xid: post.uuid,
 				language: 'ru',
 				title: post.title,
 				CSS_READY: 1,
-				callback: function() {
-					callback(true);
-				}
+				callback: deferred.resolve
 			});
-		}, this));
+		} catch (e) {
+			deferred.reject();
+		}
+
+		return deferred.promise();
 	};
 
 	Blog.prototype.visuals = function() {

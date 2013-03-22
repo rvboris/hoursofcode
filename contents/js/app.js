@@ -75,16 +75,23 @@ define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'hypercomments'
 
 	    var routes = {
 	    	'/blog': {
-	    		'/page/:num': function(num) {
-	    			if (!num) {
-	    				return;
-	    			}
-
-	    			console.log(num);
+	    		'/page/:num': function(pageNum, next) {
+	    			blog.displayPosts(pageNum, _.bind(function() {
+	    				next();
+	    			}, this));
 	    		},
-	    		'on': function(next) {
+	    		'/tag/:tag': {
+	    			'/page/:num': function() {
+
+	    			},
+	    			on: function() {
+
+	    			}
+	    		},
+	    		'on': function(pageNum, next) {
 	    			if (!_.isUndefined(blog)) {
-	    				return ascensor.setFloorByHash('blog');
+	    				ascensor.setFloorByHash('blog');
+	    				return next();
 	    			}
 
 	    			blog = new Blog();
