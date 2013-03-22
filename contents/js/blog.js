@@ -44,12 +44,15 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		return deferred.promise();
 	};
 
-	Blog.prototype.paginator = function() {
+	Blog.prototype.paginator = function(currentPage) {
 		$('#ascensorFloor1 .paginator').pagination({
 			items: this.postsList.length,
 			itemsOnPage: this.options.postsPerPage,
-			cssStyle: 'light-theme',
+			cssStyle: '',
+			currentPage: currentPage || 1,
 			hrefTextPrefix: '#/blog/page/',
+			prevText: '&larr;',
+			nextText: '&rarr;',
 			onPageClick: _.bind(function(page) {
 				Registry.get('router').setRoute('/blog/page/' + page);
 			}, this)
@@ -86,7 +89,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			$('#ascensorFloor1 section.content').html(renderedPosts.join(this.postSeparatorTemplate()) + this.postPaginatorTemplate());
 
 			if (this.postsList.length > this.options.postsPerPage) {
-				this.paginator();
+				this.paginator(page + 1);
 			}
 
 			this.visuals();
