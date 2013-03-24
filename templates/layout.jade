@@ -18,13 +18,14 @@ html
     block nav
       nav#map
         button.ascensorLink.ascensorLink1.blog Блог
-        button.ascensorLink.ascensorLink3.portfolio Портфолио
-        button.ascensorLink.ascensorLink4.contact Контакты
+        button.ascensorLink.ascensorLink3.archive Архив
+        button.ascensorLink.ascensorLink4.portfolio Портфолио
+        button.ascensorLink.ascensorLink5.contact Контакты
   
     #ascensorBuilding
-      section
+      section.blog-section
         .container
-          block indexSection
+          block blogSection
             header
               .row
                 div.col.headline
@@ -32,10 +33,10 @@ html
               .row
                 .col.subline
                   h2 Блог
-                  a(href='#').icon-social-RSS
+                  a(href='/feed.xml').icon-social-RSS
             section.content
             include main-footer
-      section
+      section.post-section
         .container
             header
               .row
@@ -44,15 +45,28 @@ html
               .row
                 .col.subline
                   h2 Блог
-                  a(href='#').icon-social-RSS
-            block pageSection
+                  a(href='/feed.xml').icon-social-RSS
+            block postSection
               section.content
             include main-footer
-      section
+      section.archive-section
+        .container
+          block archiveSection
+            header
+              .row
+                div.col.headline
+                  h1 HoursOfCode
+              .row
+                .col.subline
+                  h2 Блог
+                  a(href='/feed.xml').icon-social-RSS
+            section.content
+            include main-footer
+      section.portfolio-section
         .container
           block portfolioSection
             | Portfolio page
-      section
+      section.contact-section
         .container
           block contactSection
             | Contact page

@@ -1,9 +1,9 @@
 extends layout
 
 block prepend body
-  body(style='overflow:hidden').page
+  body(style='overflow:hidden').post
 
-block pageSection
+block postSection
   - var getPostData = function() {
   -     var post = contents.posts[page.parent.filename.split(path.sep)[1]]['data.json'].metadata;
   -     delete post.template;
@@ -27,7 +27,7 @@ block pageSection
           ul
             each topic, i in post.topics
               li
-                a(href='#')= topic
+                a(href='#/blog/topic/' + topic)= topic
                 - if (i < post.topics.length - 1)
                   | ,
       .social

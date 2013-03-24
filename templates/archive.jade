@@ -1,0 +1,14 @@
+- moment.lang('ru');
+- var getUrlFromPath = function(post) { return '/' + path.dirname(post.filename).replace(path.sep, '/') };
+- var posts = _.chain(contents.posts._.directories);
+
+- posts = posts.map(function(post) {
+-     var postData = post['data.json'];
+-     return { url: getUrlFromPath(postData), date: postData.metadata.date, title: postData.metadata.title }
+- });
+
+- posts.sortBy(function(post) { return -moment(post.date, 'DD/MM/YYYY').unix() });
+- posts = posts.groupBy(function(post) { return moment(post.date, 'DD/MM/YYYY').format('YYYY') }).value();
+- _.forEach(posts, function(postsByYear, year) { posts[year] = _.groupBy(postsByYear, function(post) { return moment(post.date, 'DD/MM/YYYY').format('MMMM') }) });
+
+!= JSON.stringify(posts)

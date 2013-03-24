@@ -50,7 +50,7 @@ nav#map
   bottom 10px
   right 10px
   z-index 1
-  width 64px
+  width 96px
   height 64px
   border 3px solid #444
   button
@@ -66,23 +66,24 @@ nav#map
       border 0
       background #444
     &.blog
-      left 4px
+      left 36px
       top 4px
-    &.portfolio
+    &.archive
       top 34px
       left 4px
+    &.portfolio
+      top 34px
+      left 36px
     &.contact
       top 34px
       right 4px
     &.ascensorLinkActive
-      width 26px
-      height 26px
-      border 0
       background #444
       cursor default
 
 #ascensorBuilding
   overflow hidden
+  background #FAFAFA url('../img/main-bg.png')
 
   section
     .container
@@ -107,7 +108,7 @@ nav#map
         grid('d')
         padding 20px
   
-  #ascensorFloor1, #ascensorFloor2
+  .blog-section, .post-section, .archive-section
     background url('../img/blog-bg.jpg')
 
     header
@@ -341,7 +342,7 @@ nav#map
     footer
       background #141413
       max-width 1140px
-      margin 0 auto
+      margin 0 auto !important
       height 50px
       line-height 50px
       garde-font()
@@ -352,8 +353,10 @@ nav#map
           background transparent
           border 0
           text-decoration none
-          &:hover
+          &:hover, &.ascensorLinkActive
             color #FF3333
+          &.ascensorLinkActive
+            cursor default
 
         button
           margin-right 20px
@@ -386,7 +389,7 @@ nav#map
         text-align right
         padding-right 20px
 
-  #ascensorFloor2
+  .post-section
     .content
       padding 10px 0
       header

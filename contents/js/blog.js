@@ -1,4 +1,4 @@
-define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination'], function($, lodash, Registry) {
+define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo'], function($, lodash, Registry) {
 	var Blog = function() {
 		this.options = {
 			postsPerPage: 5
@@ -13,7 +13,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		this.postPaginatorTemplate = Handlebars.compile($('#post-paginator-template').html());
 		this.fullPostTemplate = Handlebars.compile($('#full-post-template').html());
 
-		$('#ascensorFloor1 section.content').on('click', 'a.more', $.proxy(function(e) {
+		$('.blog-section section.content').on('click', 'a.more', _.bind(function(e) {
 			e.preventDefault();
 
 			var postUrl = $(e.currentTarget).attr('href');
@@ -21,7 +21,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 
 			this.displayPost(postUrl, function(result, post) {
 				if (result) {
-					Registry.get('router').setRoute('/page/' + postName);
+					Registry.get('router').setRoute('/post/' + postName);
 				} else {
 
 				}
@@ -36,23 +36,24 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 			this.topicsList = data.topics;
 			this.postsList = data.posts;
 
-			this.displayPosts(1, null, _.bind(function() {
-				deferred.resolve();
-			}, this));
+			deferred.resolve();
 		}, this));
 
 		return deferred.promise();
 	};
 
-	Blog.prototype.paginator = function(currentPage) {
-		$('#ascensorFloor1 .paginator').pagination({
+	Blog.prototype.paginator = function(currentPage, topic) {
+		$('.blog-section .paginator').pagination({
 			items: this.postsList.length,
 			itemsOnPage: this.options.postsPerPage,
 			cssStyle: '',
 			currentPage: currentPage || 1,
-			hrefTextPrefix: '#/blog/page/',
+			hrefTextPrefix: _.isNull(topic) ? '#/blog/page/' : '#/blog/topic/' + topic + '/page/',
 			prevText: '&larr;',
-			nextText: '&rarr;'
+			nextText: '&rarr;',
+			onPageClick: function() {
+				$('.blog-section .container').scrollTo({ top: '0px', left: '0px' }, 500, { easing: 'swing', queue: true, axis:'y' });
+			}
 		});
 	};
 
@@ -67,7 +68,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		if (this.postsCache[postName]) {
 			deferred.resolve(postUrl, this.postsCache[postName]);
 		} else {
-			$.getJSON(postUrl + 'data.json').done(_.bind(function(post) {
+			$.getJSON(postUrl + '/data.json').done(_.bind(function(post) {
 				this.postsCache[postName] = post;
 				deferred.resolve(postUrl, this.postsCache[postName]);
 			}, this));
@@ -94,18 +95,23 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		var postsCount = _.size(posts);
 
 		if (postsCount === 0) {
-			return callback(false);
+			if (_.isFunction(callback)) {
+				callback(false);
+			}
+
+			return;
 		} else if (postsCount > this.options.postsPerPage) {
 			posts = posts.slice(page * this.options.postsPerPage, (page * this.options.postsPerPage) + this.options.postsPerPage);
 		}
 
 		var renderPosts = _.after(_.size(posts), _.bind(function() {
-			$('#ascensorFloor1 section.content').html(renderedPosts.join(this.postSeparatorTemplate()) + this.postPaginatorTemplate());
+			$('.blog-section section.content').html(renderedPosts.join(this.postSeparatorTemplate()) + this.postPaginatorTemplate());
 
-			if (this.postsList.length > this.options.postsPerPage) {
-				this.paginator(page + 1);
+			if (postsCount > this.options.postsPerPage) {
+				this.paginator(page + 1, topic);
 			}
 
+			this.displayBloggerStream();
 			this.visuals();
 			
 			if (_.isFunction(callback)) {
@@ -118,16 +124,21 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		}, this);
 
 		$.when.apply($, requests).done(_.bind(function () {
-			_.each(arguments, function(result) {
-				renderedPosts.push(this.postTemplate({ url: result[0], post: result[1] }));
+			if (_.size(requests) > 1) {
+				_.each(arguments, function(result) {
+					renderedPosts.push(this.postTemplate({ url: result[0], post: result[1] }));
+					renderPosts();
+				}, this);
+			} else {
+				renderedPosts.push(this.postTemplate({ url: arguments[0], post: arguments[1] }));
 				renderPosts();
-			}, this);
+			}
 		}, this));
 	};
 
 	Blog.prototype.displayPost = function(postUrl, callback) {
 		this.getPost(postUrl).done(_.bind(function(postUrl, post) {
-			$('#ascensorFloor2 section.content').html(this.fullPostTemplate({ url: postUrl, post: post }));
+			$('.post-section section.content').html(this.fullPostTemplate({ url: postUrl, post: post }));
 			
 			this.displayCommentsStream(post).done(function() {
 				callback(true);
@@ -156,6 +167,19 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination']
 		}
 
 		return deferred.promise();
+	};
+
+	Blog.prototype.displayBloggerStream = function() {
+		try {
+			HC.widget('Bloggerstream', {
+				widget_id: 6177,
+				selector: '.comments-count'
+			});
+		} catch (e) {
+			if (console.log) {
+				console.log(e);
+			}
+		}
 	};
 
 	Blog.prototype.visuals = function() {
