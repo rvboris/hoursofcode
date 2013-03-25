@@ -49,6 +49,24 @@ requirejs.config({
                 Handlebars.registerHelper('getPostNameFromUrl', function (url) {
                     return _.compact(url.split('/'))[1];
                 });
+
+                Handlebars.registerHelper('getItemByIndex', function (arr, idx) {
+                    return arr[idx] || false;
+                });
+
+                Handlebars.registerHelper('debug', function(optionalValue) {
+                	try {
+	                	console.log('Current Context');
+	                	console.log(this);
+
+	                	if (optionalValue) {
+	                		console.log('Value');
+	                		console.log(optionalValue);
+	                	}
+                	} catch (e) {
+
+                	}
+                });
             }
         }
     }

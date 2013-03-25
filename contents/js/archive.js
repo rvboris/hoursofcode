@@ -7,7 +7,7 @@ define(['jquery', 'lodash'], function() {
 	Archive.prototype.init = function() {
 		var deferred = $.Deferred();
 
-		if (!_.isNull(this.archive)) {
+		if (!_.isNull(this.archiveData)) {
 			deferred.resolve();
 			return deferred.promise();
 		}

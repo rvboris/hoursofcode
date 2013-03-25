@@ -1,14 +1,32 @@
-- moment.lang('ru');
-- var getUrlFromPath = function(post) { return '/' + path.dirname(post.filename).replace(path.sep, '/') };
-- var posts = _.chain(contents.posts._.directories);
+- var posts, topics;
+- var dateFormat = 'DD/MM/YYYY';
 
-- posts = posts.map(function(post) {
+- moment.lang('ru');
+
+- var getUrlFromPath = function(post) { return '/' + path.dirname(post.filename).replace(path.sep, '/') };
+
+- posts = _.map(contents.posts._.directories, function(post) {
 -     var postData = post['data.json'];
--     return { url: getUrlFromPath(postData), date: postData.metadata.date, title: postData.metadata.title }
+-     return { url: getUrlFromPath(postData), date: postData.metadata.date, title: postData.metadata.title, topics: postData.metadata.topics }
 - });
 
-- posts.sortBy(function(post) { return -moment(post.date, 'DD/MM/YYYY').unix() });
-- posts = posts.groupBy(function(post) { return moment(post.date, 'DD/MM/YYYY').format('YYYY') }).value();
-- _.forEach(posts, function(postsByYear, year) { posts[year] = _.groupBy(postsByYear, function(post) { return moment(post.date, 'DD/MM/YYYY').format('MMMM') }) });
+- var topics = _.reduce(posts, function(topics, post) {
+-     return topics.concat(post.topics || []);
+- }, []);
 
-!= JSON.stringify(posts)
+- if (_.size(topics) > 0) topics = _.uniq(topics);
+
+- posts = _.map(posts, function(post) {
+-     post.topics = _.map(post.topics, function(topic) { return _.indexOf(topics, topic) });
+-     return post;
+- });
+
+- posts = _.sortBy(posts, function(post) { return -moment(post.date, dateFormat).unix() });
+
+- posts = _.groupBy(posts, function(post) { return moment(post.date, dateFormat).format('YYYY') });
+
+- _.forEach(posts, function(postsByYear, year) {
+-     posts[year] = _.groupBy(postsByYear, function(post) { return moment(post.date, dateFormat).format('MMMM') });
+- });
+
+!= JSON.stringify({ topics: topics, posts: posts })

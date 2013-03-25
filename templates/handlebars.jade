@@ -77,4 +77,28 @@ script(type='text/x-handlebars-template')#full-post-template
   .comments#hypercomments_widget
 
 script(type='text/x-handlebars-template')#archive-template
-  | test
+  ol
+    | {{#each this.posts}}
+    li
+      h1.year {{@key}}
+      ol
+        | {{#each this}}
+        li
+          h2.month {{@key}}
+          ol
+            | {{#each this}}
+            li.post
+              a(href='#' + '{{this.url}}') {{this.title}}
+              span (
+              ul
+                | {{#each this.topics}}
+                li.topic
+                  a(href='#/blog/topic/{{getItemByIndex ../../../../topics @index }}') {{getItemByIndex ../../../../topics @index }}
+                  | {{#notLast ../topics this}}
+                  span ,
+                  | {{/notLast}}
+                | {{/each}}
+              span )
+            | {{/each}}
+        | {{/each}}
+    | {{/each}}
