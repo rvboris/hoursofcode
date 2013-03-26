@@ -77,20 +77,20 @@ script(type='text/x-handlebars-template')#full-post-template
   .comments#hypercomments_widget
 
 script(type='text/x-handlebars-template')#archive-template
-  ol
+  ol.years
     | {{#each this.posts}}
-    li
-      h1.year {{@key}}
-      ol
+    li.year
+      h1 {{@key}}
+      ol.months
         | {{#each this}}
-        li
-          h2.month {{@key}}
-          ol
+        li.month
+          h2 {{@key}}
+          ol.posts
             | {{#each this}}
             li.post
               a(href='#' + '{{this.url}}') {{this.title}}
-              span (
-              ul
+              ul.topics
+                span (
                 | {{#each this.topics}}
                 li.topic
                   a(href='#/blog/topic/{{getItemByIndex ../../../../topics @index }}') {{getItemByIndex ../../../../topics @index }}
@@ -98,7 +98,7 @@ script(type='text/x-handlebars-template')#archive-template
                   span ,
                   | {{/notLast}}
                 | {{/each}}
-              span )
+                span )
             | {{/each}}
         | {{/each}}
     | {{/each}}

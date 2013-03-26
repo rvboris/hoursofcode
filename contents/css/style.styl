@@ -434,7 +434,7 @@ nav#map
             text-decoration none
             font-size 2em
             display inline-block
-            height 38px
+            height 38px 
             &:hover
               color #FF3333
         .topics
@@ -463,3 +463,37 @@ nav#map
                   text-decoration none
       .comments
         margin 20px
+  .archive-section
+    ol, ul
+      list-style none
+      padding 0
+      margin 0
+      h1, h2
+        margin 0
+        font-weight lighter
+        lucida-font()
+        font-style italic
+    ol.years
+      padding 20px
+    ol.months
+      padding-left 20px
+      li.month
+        margin 15px 0
+        h2
+          text-transform capitalize
+    ol.posts 
+      padding-left 20px
+      li.post
+        line-height 1.6em
+        font-size 1.22em
+        a
+          color #000
+          font-style italic
+          georgia-font()
+          &:hover
+            color #FF3333
+        ul.topics
+          display inline
+          padding-left 10px
+          li
+            display inline
