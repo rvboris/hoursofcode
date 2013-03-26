@@ -20,6 +20,13 @@ helvetica-font()
 garde-font()
   font-family 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif
 
+link-transition()
+  -webkit-transition color 300ms ease-in-out
+  -moz-transition color 300ms ease-in-out
+  -ms-transition color 300ms ease-in-out
+  -o-transition color 300ms ease-in-out
+  transition color 300ms ease-in-out
+
 .slabtexted .slabtext
   display -moz-inline-box
   display inline-block
@@ -132,6 +139,7 @@ nav#map
           text-decoration none
           font-size 1.8em
           padding 0 10px
+          link-transition()
           &:hover
             color #9F2BD7
 
