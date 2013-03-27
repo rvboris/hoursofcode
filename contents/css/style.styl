@@ -3,22 +3,35 @@
 @import grands
 @import nib
 
+@font-face
+  font-family 'Pragmatic'
+  src url('../fonts/pragmatic.eot')
+  src url('../fonts/pragmatic.eot?#iefix') format('embedded-opentype'), url('../fonts/pragmatic.svg#Pragmatic') format('svg'), url('../fonts/pragmatic.woff') format('woff'), url('../fonts/pragmatic.ttf') format('truetype')
+  font-weight normal
+  font-style normal
+
+@font-face
+  font-family 'Officina-Regular'
+  src url('../fonts/officina-regular.eot')
+  src url('../fonts/officina-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/officina-regular.svg#Officina-Regular') format('svg'), url('../fonts/officina-regular.woff') format('woff'), url('../fonts/officina-regular.ttf') format('truetype')
+  font-weight normal
+  font-style normal
+
+@font-face
+  font-family 'Officina-Italic'
+  src url('../fonts/officina-italic.eot')
+  src url('../fonts/officina-italic.eot?#iefix') format('embedded-opentype'), url('../fonts/officina-italic.svg#Officina-Italic') format('svg'), url('../fonts/officina-italic.woff') format('woff'), url('../fonts/officina-italic.ttf') format('truetype')
+  font-weight normal
+  font-style normal
+
+h1, h2, h3, h4, h5
+  font-weight normal
+  margin 0
+
 border-box()
   -webkit-box-sizing border-box
   -moz-box-sizing border-box
   box-sizing border-box
-
-lucida-font()
-  font-family 'Lucida Bright', Georgia, serif
-
-georgia-font()
-  font-family Georgia, Times, 'Times New Roman', serif
-
-helvetica-font()
-  font-family 'Helvetica Neue', Helvetica, Arial, sans-serif
-
-garde-font()
-  font-family 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif
 
 link-transition()
   -webkit-transition color 300ms ease-in-out
@@ -44,12 +57,15 @@ link-transition()
 .slabtextdone .slabtext
   display block
 
+.comments
+  .hc_footer
+    display none !important
+
 #fader
   .loader
     margin-top 10%
     text-align center
-    lucida-font()
-    font-style italic
+    font-family 'Officina-Italic'
     font-size 1.2rem
 
 nav#map
@@ -128,11 +144,8 @@ nav#map
           margin 0
           padding 0
           display inline-block
-          font-family HelveticaNeue, Arial
-          -webkit-box-sizing border-box
-          -moz-box-sizing border-box
-          box-sizing border-box
-          font-weight normal
+          border-box()
+          font-family 'Pragmatic'
 
         .icon-social-RSS
           color #141413
@@ -159,7 +172,7 @@ nav#map
         h2
           background #FFF
           color #141413
-          padding 5px 10px
+          padding 5px 20px
 
           @media media-phone
             font-size 30px
@@ -200,21 +213,19 @@ nav#map
           
         .left .wrap
           h1
-            lucida-font()
+            font-family 'Officina-Italic'
             margin 10px 20px
             font-size 1.85em
-            font-weight lighter
-            font-style italic
           .text 
             margin 10px 20px 20px 20px
-            georgia-font()
-            font-size 1.22em
-            line-height 1.6em
+            font-family 'Officina-Regular'
+            font-size 1.21em
+            line-height 1.5em
             p:first-line
               text-indent 20px
             a
               color #000
-              font-style italic
+              font-family 'Officina-Italic'
               &:hover
                 color #FF3333
                 text-decoration none
@@ -230,7 +241,7 @@ nav#map
               max-width 200px
               height 150px
               position relative
-              helvetica-font()
+              font-family 'Pragmatic'
               
               .day
                 position absolute
@@ -241,9 +252,10 @@ nav#map
                 font-size 500%
                 line-height 75px
                 text-align center
+                text-indent -10px
               .month
                 left 10%
-                bottom 10%
+                bottom 5%
                 position absolute
                 
                 width 50%
@@ -275,9 +287,9 @@ nav#map
             .comments
               margin 20px 0
               a
-                garde-font()
-                font-style italic
+                font-family 'Officina-Italic'
                 color #000
+                font-size 1.05em
                 &:visited
                   color #000
                 &:hover
@@ -285,12 +297,10 @@ nav#map
                   text-decoration none
 
             .topics
-              h4, a, span
-                garde-font()
-                font-weight normal
               h4
-                font-size 1.2em
+                font-size 17px
                 margin 10px 0
+                font-family 'Pragmatic'
               ul
                 list-style none
                 padding 0
@@ -301,7 +311,8 @@ nav#map
                   display inline
                   a
                     color #000
-                    font-style italic
+                    font-family 'Officina-Italic'
+                    font-size 1.1em
                     &:visited
                       color #000
                     &:hover
@@ -311,9 +322,8 @@ nav#map
             .social
               margin-top 30px
               h4
-                garde-font()
-                font-weight normal
-                font-size 1.2em
+                font-family 'Pragmatic'
+                font-size 17px
                 margin 10px 0
               a
                 text-align center
@@ -336,7 +346,7 @@ nav#map
           display inline-block
           margin 0 1px
           padding 0 8px
-          font-style italic
+          font-family 'Officina-Italic'
         span.current
           color #FF3333
           &.prev, &.next
@@ -353,7 +363,6 @@ nav#map
       margin 0 auto !important
       height 50px
       line-height 50px
-      garde-font()
 
       .blog-nav
         button, a
@@ -361,6 +370,8 @@ nav#map
           background transparent
           border 0
           text-decoration none
+          font-size 17px
+          font-family 'Pragmatic'
           &:hover, &.ascensorLinkActive
             color #FF3333
           &.ascensorLinkActive
@@ -387,6 +398,9 @@ nav#map
             border 0
             color #FFF
             background transparent
+            font-family 'Pragmatic'
+            font-size 17px
+            margin 0 10px
             &:hover, &.ascensorLinkActive
               color #000
             &.ascensorLinkActive
@@ -396,6 +410,8 @@ nav#map
         color #FFF
         text-align right
         padding-right 20px
+        font-family 'Pragmatic'
+        font-size 17px
 
   .post-section
     .content
@@ -404,21 +420,18 @@ nav#map
         h1.title
           margin 0
           padding 0 20px
-          font-size 3em
-          lucida-font()
-          font-weight normal
+          font-size 3.1em
+          font-family 'Officina-Regular'
         time
           color #8C8C8C
           padding 0 20px
-          font-size 1.4em
-          font-style italic
-          lucida-font()
+          font-size 1.41em
+          font-family 'Officina-Italic'
       section.short-text, section.full-text
         padding 15px 20px
-        font-size 1.5em
-        georgia-font()
-        font-size 1.22em
-        line-height 1.6em
+        font-family 'Officina-Regular'
+        font-size 1.21em
+        line-height 1.5em
         p:first-line
           text-indent 20px
       .page-footer
@@ -427,11 +440,10 @@ nav#map
         clearfix()
         .social
           float right
-          width 250px
+          width 235px
           h4
-            garde-font()
-            font-weight normal
-            font-size 1.2em
+            font-family 'Pragmatic'
+            font-size 1.05em
             display inline-block
             height 33px
             float left
@@ -448,9 +460,8 @@ nav#map
         .topics
           float left
           h4
-            garde-font()
-            font-weight normal
-            font-size 1.2em
+            font-family 'Pragmatic'
+            font-size 1.05em
             display inline
             padding-right 10px
           ul
@@ -462,7 +473,8 @@ nav#map
               display inline
               a
                 color #000
-                font-style italic
+                font-family 'Officina-Italic'
+                font-size 1.2em
 
                 &:visited
                   color #000
@@ -478,9 +490,7 @@ nav#map
       margin 0
       h1, h2
         margin 0
-        font-weight lighter
-        lucida-font()
-        font-style italic
+        font-family 'Officina-Italic'
     ol.years
       padding 20px
     ol.months
@@ -492,12 +502,11 @@ nav#map
     ol.posts 
       padding-left 20px
       li.post
-        line-height 1.6em
-        font-size 1.22em
+        line-height 1.5em
+        font-size 1.21em
         a
           color #000
-          font-style italic
-          georgia-font()
+          font-family 'Officina-Italic'
           &:hover
             color #FF3333
         ul.topics
@@ -505,3 +514,11 @@ nav#map
           padding-left 10px
           li
             display inline
+  .portfolio-section
+    header h1
+      display inline-block
+      background #D6F233
+      color #000
+      padding 20px
+      font-size 3.1em
+      font-family 'Officina-Italic'

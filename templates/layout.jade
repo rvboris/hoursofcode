@@ -38,17 +38,17 @@ html
             include main-footer
       section.post-section
         .container
-            header
-              .row
-                div.col.headline
-                  h1 HoursOfCode
-              .row
-                .col.subline
-                  h2 Блог
-                  a(href='/feed.xml').icon-social-RSS
-            block postSection
-              section.content
-            include main-footer
+          header
+            .row
+              div.col.headline
+                h1 HoursOfCode
+            .row
+              .col.subline
+                h2 Блог
+                a(href='/feed.xml').icon-social-RSS
+          block postSection
+            section.content
+          include main-footer
       section.archive-section
         .container
           block archiveSection
@@ -65,7 +65,9 @@ html
       section.portfolio-section
         .container
           block portfolioSection
-            | Portfolio page
+            header
+              h1 Портфолио
+
       section.contact-section
         .container
           block contactSection
