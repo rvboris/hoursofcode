@@ -1,6 +1,4 @@
 @import grid
-@import elusive
-@import grands
 @import nib
 
 @font-face
@@ -11,16 +9,16 @@
   font-style normal
 
 @font-face
-  font-family 'Officina-Regular'
-  src url('../fonts/officina-regular.eot')
-  src url('../fonts/officina-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/officina-regular.svg#Officina-Regular') format('svg'), url('../fonts/officina-regular.woff') format('woff'), url('../fonts/officina-regular.ttf') format('truetype')
+  font-family 'Barnaul-Regular'
+  src url('../fonts/barnaul-regular.eot')
+  src url('../fonts/barnaul-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/barnaul-regular.svg#Barnaul-Regular') format('svg'), url('../fonts/barnaul-regular.woff') format('woff'), url('../fonts/barnaul-regular.ttf') format('truetype')
   font-weight normal
   font-style normal
 
 @font-face
-  font-family 'Officina-Italic'
-  src url('../fonts/officina-italic.eot')
-  src url('../fonts/officina-italic.eot?#iefix') format('embedded-opentype'), url('../fonts/officina-italic.svg#Officina-Italic') format('svg'), url('../fonts/officina-italic.woff') format('woff'), url('../fonts/officina-italic.ttf') format('truetype')
+  font-family 'Barnaul-Italic'
+  src url('../fonts/barnaul-italic.eot')
+  src url('../fonts/barnaul-italic.eot?#iefix') format('embedded-opentype'), url('../fonts/barnaul-italic.svg#Barnaul-Italic') format('svg'), url('../fonts/barnaul-italic.woff') format('woff'), url('../fonts/barnaul-italic.ttf') format('truetype')
   font-weight normal
   font-style normal
 
@@ -65,7 +63,7 @@ link-transition()
   .loader
     margin-top 10%
     text-align center
-    font-family 'Officina-Italic'
+    font-family 'Barnaul-Italic'
     font-size 1.2rem
 
 nav#map
@@ -213,19 +211,19 @@ nav#map
           
         .left .wrap
           h1
-            font-family 'Officina-Italic'
+            font-family 'Barnaul-Italic'
             margin 10px 20px
             font-size 1.85em
           .text 
             margin 10px 20px 20px 20px
-            font-family 'Officina-Regular'
+            font-family 'Barnaul-Regular'
             font-size 1.21em
             line-height 1.5em
             p:first-line
               text-indent 20px
             a
               color #000
-              font-family 'Officina-Italic'
+              font-family 'Barnaul-Italic'
               &:hover
                 color #FF3333
                 text-decoration none
@@ -287,7 +285,7 @@ nav#map
             .comments
               margin 20px 0
               a
-                font-family 'Officina-Italic'
+                font-family 'Barnaul-Italic'
                 color #000
                 font-size 1.05em
                 &:visited
@@ -311,8 +309,8 @@ nav#map
                   display inline
                   a
                     color #000
-                    font-family 'Officina-Italic'
-                    font-size 1.1em
+                    font-family 'Barnaul-Italic'
+                    font-size 1.05em
                     &:visited
                       color #000
                     &:hover
@@ -329,12 +327,10 @@ nav#map
                 text-align center
                 color #000
                 text-decoration none
-                font-size 2em
+                font-size 1.7em
                 display inline-block
                 width 25%
                 max-width 40px
-                height 40px
-                line-height 40px
                 &:hover
                   color #FF3333
       .paginator
@@ -346,7 +342,7 @@ nav#map
           display inline-block
           margin 0 1px
           padding 0 8px
-          font-family 'Officina-Italic'
+          font-family 'Barnaul-Italic'
         span.current
           color #FF3333
           &.prev, &.next
@@ -376,6 +372,8 @@ nav#map
             color #FF3333
           &.ascensorLinkActive
             cursor default
+          i
+            padding-right 10px
 
         button
           margin-right 20px
@@ -405,6 +403,8 @@ nav#map
               color #000
             &.ascensorLinkActive
               cursor default
+            i
+              padding-right 5px
 
       .copyrights
         color #FFF
@@ -420,16 +420,16 @@ nav#map
         h1.title
           margin 0
           padding 0 20px
-          font-size 3.1em
-          font-family 'Officina-Regular'
+          font-size 2.1em
+          font-family 'Barnaul-Italic'
         time
           color #8C8C8C
           padding 0 20px
-          font-size 1.41em
-          font-family 'Officina-Italic'
+          font-size 17px
+          font-family 'Pragmatic'
       section.short-text, section.full-text
         padding 15px 20px
-        font-family 'Officina-Regular'
+        font-family 'Barnaul-Regular'
         font-size 1.21em
         line-height 1.5em
         p:first-line
@@ -440,21 +440,21 @@ nav#map
         clearfix()
         .social
           float right
-          width 235px
+          width 205px
           h4
             font-family 'Pragmatic'
             font-size 1.05em
             display inline-block
-            height 33px
             float left
             margin 0
-            padding-top 5px
+            line-height 24px
           a
             color #000
             text-decoration none
-            font-size 2em
+            font-size 1.5em
             display inline-block
-            height 38px 
+            height 24px
+            padding 0 5px
             &:hover
               color #FF3333
         .topics
@@ -473,7 +473,7 @@ nav#map
               display inline
               a
                 color #000
-                font-family 'Officina-Italic'
+                font-family 'Barnaul-Italic'
                 font-size 1.2em
 
                 &:visited
@@ -490,7 +490,7 @@ nav#map
       margin 0
       h1, h2
         margin 0
-        font-family 'Officina-Italic'
+        font-family 'Barnaul-Italic'
     ol.years
       padding 20px
     ol.months
@@ -506,7 +506,7 @@ nav#map
         font-size 1.21em
         a
           color #000
-          font-family 'Officina-Italic'
+          font-family 'Barnaul-Italic'
           &:hover
             color #FF3333
         ul.topics
@@ -521,4 +521,4 @@ nav#map
       color #000
       padding 20px
       font-size 3.1em
-      font-family 'Officina-Italic'
+      font-family 'Barnaul-Italic'
