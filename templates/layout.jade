@@ -68,7 +68,98 @@ html
           block portfolioSection
             header
               h1 Портфолио
+              h2 Ryabov Boris / Front-end developer
+            section.skills
+              div
+                h1 JS
+                ul.js
+                  li jQuery
+                  li AMD Modules, Require.js
+                  li Deploy systems Grunt & Bower 
+                  li Knockout.JS, MVVM Pattern, OOP Style
+                  li Node.js (async & fibers)
+                  li WebSockets, ES5
+              div
+                h1 HTML/CSS
+                ul.html
+                  li HTML5, Jade, Handlebars
+                  li CSS3, Stylus, LESS
+                  li Bootstrap
+                  li Responsive design
+                  li Fluid grids
+              div
+                h1 DB
+                ul.db
+                  li MySQL
+                  li Redis
+                  li MongoDB
+              div
+                h1 VCS
+                ul.vcs
+                  li Mercurial
+                  li GIT
+              div
+                h1 misc
+                ul.need
+                  li C# (WPF, DevExpress)
+                  li PHP (Zend, Yii, Doctrine)
+                  li Java, android
+              div
+                h1 etc
+                ul.use
+                  li Ubuntu, Windows
+                  li Nginx, Apache
+                  li Sphinx, ElasticSearch
+                  li Sublime Text, WebStorm, VS
+                  li Adobe Fireworks
+            section.works
+              ul.filters.g-buttons
+                li
+                  button(type='button', data-filter='*').g-button.left.active Все
+                li
+                  button(type='button', data-filter='.site').g-button.middle Сайты / Дизайн
+                li
+                  button(type='button', data-filter='.app').g-button.middle Приложения
+                li
+                  button(type='button', data-filter='.misc').g-button.right Другое
 
+              ul.works-container
+                li.site
+                  div.work-item.hotel-sever
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.rbs-creative4
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.rnames
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.rbs-creative3
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.taksor
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.rbs-creative1
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.rbs-creative2
+                    div.work-item-info
+                      h1 Test
+                li.site
+                  div.work-item.oasis
+                    div.work-item-info
+                      h1 Test
+                li.app
+                  div.work-item.iluck
+                    div.work-item-info
+                      h1 Test
       section.contact-section
         .container
           block contactSection

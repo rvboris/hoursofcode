@@ -9,7 +9,9 @@ requirejs.config({
         'jquery.easing': '//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min',
         'jquery.slabText': '//cdnjs.cloudflare.com/ajax/libs/slabText/2.2/jquery.slabtext.min',
         'jquery.simplePagination': 'libs/jquery.simplePagination',
-        'jquery.scrollTo': '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.3/jquery.scrollTo.min'
+        'jquery.jrumble': 'libs/jquery.jrumble',
+        'jquery.scrollTo': '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.3/jquery.scrollTo.min',
+        'jquery.isotope': '//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min'
     },
     shim: {
         'jquery.easing': {
@@ -27,6 +29,14 @@ requirejs.config({
         'jquery.scrollTo': {
             deps: ['jquery'],
             exports: 'jQuery.fn.scrollTo'
+        },
+        'jquery.isotope': {
+            deps: ['jquery'],
+            exports: 'jQuery.fn.isotope'
+        },
+        'jquery.jrumble': {
+            deps: ['jquery'],
+            exports: 'jQuery.fn.jrumble'
         },
         'handlebars': {
             deps: ['moment', 'moment.ru'],
@@ -72,7 +82,7 @@ requirejs.config({
     }
 });
 
-define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'archive', 'hypercomments', 'libs/jquery.ascensor', 'jquery.slabText'], function ($, _, Registry, Router, Blog, Archive) {
+define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'archive', 'portfolio', 'hypercomments', 'libs/jquery.ascensor', 'jquery.slabText', 'jquery.jrumble'], function ($, _, Registry, Router, Blog, Archive, Portfolio) {
     $(document).ready(function () {
         var router = null;
         var pageClass = $('body').attr('class').split(/\s+/)[0];
@@ -199,6 +209,10 @@ define(['jquery', 'lodash', 'registry', 'libs/director', 'blog', 'archive', 'hyp
 	        	}
 	        },
 	        '/portfolio': function () {
+	        	if (_.isUndefined(portfolio)) {
+	        		portfolio = new Portfolio();
+	        	}
+
 	        	ascensor.setFloorByHash('portfolio');
 	        },
 	        '/contact': function () {
