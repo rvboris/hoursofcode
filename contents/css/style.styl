@@ -550,6 +550,7 @@ nav#map
         &:hover
           border-color #F13349
     section.works
+      min-height 600px
       .g-buttons
         clearfix()
         padding 0
@@ -558,10 +559,9 @@ nav#map
         list-style none
         li
           float left
-      .works-container:after, .work-item:before
-        content ''
-        display table
+
       .works-container
+        clearfix()
         margin 20px 0 0 0
         padding 0
         list-style none
@@ -579,19 +579,65 @@ nav#map
             height 100%
             border-radius 50%
             position relative
-            box-shadow inset 0 0 0 0 rgba(214, 242, 51, 0.6), inset 0 0 0 16px rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.1)
+            box-shadow inset 0 0 0 0 rgba(241, 51, 73, 0.6), inset 0 0 0 16px rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.1)
             transition all 0.4s ease-in-out
             &:hover
-              box-shadow inset 0 0 0 110px rgba(214, 242, 51, 0.6), inset 0 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1)
+              box-shadow inset 0 0 0 110px rgba(241, 51, 73, 0.6), inset 0 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1)
             .work-item-info
               position absolute
-              width 100%
-              height 100%
+              top 0
+              bottom 0
+              left 0
+              right 0
               border-radius 50%
               overflow hidden
               opacity 0
               transition all 0.4s ease-in-out
               transform scale(0)
               backface-visibility hidden
+            h3
+              color: #fff;
+              text-transform: uppercase;
+              position: relative;
+              letter-spacing: 2px;
+              font-size: 22px;
+              margin: 0 30px;
+              padding: 65px 0 0 0;
+              height: 110px;
+              font-family: 'Open Sans', Arial, sans-serif;
+              text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0,0,0,0.3);
+            p
+              color: #fff;
+              padding: 10px 5px;
+              font-style: italic;
+              margin: 0 30px;
+              font-size: 12px;
+              border-top: 1px solid rgba(255,255,255,0.5);
             &.hotel-sever
-              background url('../portfolio/hotel-sever/thumbs/thumbs-hotel-sever.png') no-repeat
+              background url('../portfolio/hotel-sever/thumbs/hotel-sever.png') no-repeat
+            &.rbs-creative4
+              background url('../portfolio/rbs-creative4/thumbs/rbs-creative4.png') no-repeat
+            &.rnames
+              background url('../portfolio/rnames/thumbs/rnames.png') no-repeat
+            &.rbs-creative3
+              background url('../portfolio/rbs-creative3/thumbs/rbs-creative3.png') no-repeat
+            &.taksor
+              background url('../portfolio/taksor/thumbs/taksor.png') no-repeat
+            &.rbs-creative1
+              background url('../portfolio/rbs-creative1/thumbs/rbs-creative1.png') no-repeat
+            &.rbs-creative2
+              background url('../portfolio/rbs-creative2/thumbs/rbs-creative2.png') no-repeat
+            &.oasis
+              background url('../portfolio/oasis/thumbs/oasis.png') no-repeat
+            &.iluck
+              background url('../portfolio/iluck/thumbs/iluck.png') no-repeat
+            &.octanis
+              background url('../portfolio/octanis/thumbs/octanis.png') no-repeat
+            &.womansecrets
+              background url('../portfolio/womansecrets/thumbs/womansecrets.png') no-repeat
+            &.gibdd
+              background url('../portfolio/gibdd/thumbs/gibdd.png') no-repeat
+            &.e-reader
+              background url('../portfolio/engec-reader/thumbs/engec-reader.png') no-repeat
+            &.taksor-cards
+              background url('../portfolio/taksor-cards/thumbs/taxi-card.png') no-repeat
