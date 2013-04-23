@@ -3,11 +3,11 @@
 
 - moment.lang('ru');
 
-- var getUrlFromPath = function(post) { return '/' + path.dirname(post.filename).replace(path.sep, '/') };
+- var getUrlFromPath = function(post) { return '/post/' + path.basename(post.filename, '.json') };
 
 - posts = _.map(contents.posts._.directories, function(post) {
 -     var postData = post['data.json'];
--     return { url: getUrlFromPath(postData), date: postData.metadata.date, title: postData.metadata.title, topics: postData.metadata.topics }
+-     return { url: getUrlFromPath(post), date: postData.metadata.date, title: postData.metadata.title, topics: postData.metadata.topics }
 - });
 
 - var topics = _.reduce(posts, function(topics, post) {

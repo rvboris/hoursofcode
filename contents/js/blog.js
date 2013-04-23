@@ -1,4 +1,4 @@
-define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo'], function($, lodash, Registry) {
+define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo'], function($, lodash, hasher) {
 	var Blog = function() {
 		this.options = {
 			postsPerPage: 5
@@ -21,7 +21,7 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination',
 
 			this.displayPost(postUrl, function(result, post) {
 				if (result) {
-					Registry.get('router').setRoute('/post/' + postName);
+					hasher.setHash('/post/' + postName);
 				} else {
 
 				}
@@ -32,12 +32,16 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination',
 	Blog.prototype.init = function() {
 		var deferred = $.Deferred();
 
-		$.getJSON('/posts-list.json').done(_.bind(function(data) {
-			this.topicsList = data.topics;
-			this.postsList = data.posts;
+		if (!_.isNull(this.topicsList) && !_.isNull(this.postsList)) {
+			deferred.resolveWith(this, [this]);
+		} else {
+			$.getJSON('/posts-list.json').done(_.bind(function(data) {
+				this.topicsList = data.topics;
+				this.postsList = data.posts;
 
-			deferred.resolve();
-		}, this));
+				deferred.resolveWith(this, [this]);
+			}, this));
+		}
 
 		return deferred.promise();
 	};
@@ -48,12 +52,10 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination',
 			itemsOnPage: this.options.postsPerPage,
 			cssStyle: '',
 			currentPage: currentPage || 1,
-			hrefTextPrefix: _.isNull(topic) ? '#/blog/page/' : '#/blog/topic/' + topic + '/page/',
+			hrefTextPrefix: _.isNull(topic) ? '#!/blog/page/' : '#!/blog/topic/' + topic + '/page/',
 			prevText: '&larr;',
 			nextText: '&rarr;',
-			onPageClick: function() {
-				$('.blog-section .container').scrollTo({ top: '0px', left: '0px' }, 500, { easing: 'swing', queue: true, axis:'y' });
-			}
+			onPageClick: this.scrollUp
 		});
 	};
 
@@ -186,6 +188,10 @@ define(['jquery', 'lodash', 'registry', 'handlebars', 'jquery.simplePagination',
 		$('article time .day,  article time .month, article time .year').slabText({
 			forceNewCharCount: false
 		});
+	};
+
+	Blog.prototype.scrollUp = function() {
+		$('.blog-section .container').scrollTo({ top: '0px', left: '0px' }, 500, { easing: 'swing', queue: true, axis:'y' });
 	};
 
 	return Blog;

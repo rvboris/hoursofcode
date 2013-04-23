@@ -1,4 +1,4 @@
-define(['jquery.isotope'], function() {
+define(['jquery.isotope', 'jquery.fancybox'], function() {
 	var Portfolio = function() {
 		$('.portfolio-section .skills li').each(_.bind(function(idx, element) {
 			this.makeTransform(element);
@@ -24,6 +24,16 @@ define(['jquery.isotope'], function() {
 
 			isotopeElement.isotope({ filter: $(this).attr('data-filter') });
 		});
+
+		$('.portfolio-section .fancybox').fancybox();
+	};
+
+	Portfolio.prototype.init = function() {
+		var deferred = $.Deferred();
+
+		deferred.resolveWith(this, [this]);
+
+		return deferred.promise();
 	};
 
 	Portfolio.prototype.makeTransform = function(element) {

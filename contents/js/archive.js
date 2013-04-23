@@ -8,15 +8,14 @@ define(['jquery', 'lodash'], function() {
 		var deferred = $.Deferred();
 
 		if (!_.isNull(this.archiveData)) {
-			deferred.resolve();
-			return deferred.promise();
+			deferred.resolveWith(this, [this]);
+		} else {
+			$.getJSON('/archive.json').done(_.bind(function(data) {
+				this.archiveData = data;
+				deferred.resolveWith(this, [this]);
+			}, this));
 		}
-
-		$.getJSON('/archive.json').done(_.bind(function(data) {
-			this.archiveData = data;
-			deferred.resolve();
-		}, this));
-
+		
 		return deferred.promise();
 	};
 

@@ -16,7 +16,7 @@ script(type='text/x-handlebars-template')#post-template
           .year-wrap
             .year {{moment post.date 'YYYY'}}
         .comments
-          a(href='#/post/{{getPostNameFromUrl url}}', data-xid='{{post.uuid}}').comments-count Комментарии
+          a(href='#!/post/{{getPostNameFromUrl url}}', data-xid='{{post.uuid}}').comments-count Комментарии
 
         {{#if post.topics}}
         .topics
@@ -24,7 +24,7 @@ script(type='text/x-handlebars-template')#post-template
           ul
             | {{#each post.topics}}
             li
-              a(href='#/blog/topic/{{this}}') {{this}}
+              a(href='#!/blog/topic/{{this}}') {{this}}
               | {{#notLast ../post.topics this}}
               span ,
               | {{/notLast}}
@@ -60,7 +60,7 @@ script(type='text/x-handlebars-template')#full-post-template
       ul
         | {{#each post.topics}}
         li
-          a(href='#') {{this}}
+          a(href='#!/blog/topic/{{this}}') {{this}}
           | {{#notLast ../post.topics this}}
           span ,
           | {{/notLast}}
@@ -86,12 +86,12 @@ script(type='text/x-handlebars-template')#archive-template
           ol.posts
             | {{#each this}}
             li.post
-              a(href='#' + '{{this.url}}') {{this.title}}
+              a(href='#!' + '{{this.url}}') {{this.title}}
               ul.topics
                 span (
                 | {{#each this.topics}}
                 li.topic
-                  a(href='#/blog/topic/{{getItemByIndex ../../../../topics @index }}') {{getItemByIndex ../../../../topics @index }}
+                  a(href='#!/blog/topic/{{getItemByIndex ../../../../topics @index }}') {{getItemByIndex ../../../../topics @index }}
                   | {{#notLast ../topics this}}
                   span ,
                   | {{/notLast}}

@@ -27,7 +27,7 @@ block postSection
           ul
             each topic, i in post.topics
               li
-                a(href='#/blog/topic/' + topic)= topic
+                a(href='#!/blog/topic/' + topic)= topic
                 - if (i < post.topics.length - 1)
                   | ,
       .social
