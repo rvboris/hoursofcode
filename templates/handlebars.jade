@@ -1,10 +1,10 @@
 script(type='text/x-handlebars-template')#post-template
   article.row
-    .col-d-4-5.col-t-2-3.left
+    .col-d-4-5.col-t-2-3.col-p-5-5.left
       .wrap
         h1 {{post.title}}
         .text
-          | {{post.shortText}}
+          | {{{post.shortText}}}
           | {{#if post.fullText}}
           a(href='{{url}}').more Подробнее...
           | {{/if}}
@@ -48,10 +48,10 @@ script(type='text/x-handlebars-template')#full-post-template
     h1.title {{post.title}}
     time {{moment post.date 'D MMMM YYYY'}}
     | {{#if post.shortText}}
-    section.short-text {{post.shortText}}
+    section.short-text {{{post.shortText}}}
     | {{/if}}
     | {{#if post.fullText}}
-    section.full-text {{post.fullText}}
+    section.full-text {{{post.fullText}}}
     | {{/if}}
   .page-footer
     | {{#if post.topics}}

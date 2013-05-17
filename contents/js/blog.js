@@ -1,4 +1,4 @@
-define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo'], function($, lodash, hasher) {
+define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo', 'prism'], function($, lodash, hasher) {
 	var Blog = function() {
 		this.options = {
 			postsPerPage: 5
@@ -141,6 +141,8 @@ define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePaginatio
 	Blog.prototype.displayPost = function(postUrl, callback) {
 		this.getPost(postUrl).done(_.bind(function(postUrl, post) {
 			$('.post-section section.content').html(this.fullPostTemplate({ url: postUrl, post: post }));
+
+			Prism.highlightAll();
 			
 			this.displayCommentsStream(post).done(function() {
 				callback(true);
@@ -188,6 +190,8 @@ define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePaginatio
 		$('article time .day,  article time .month, article time .year').slabText({
 			forceNewCharCount: false
 		});
+
+		Prism.highlightAll();
 	};
 
 	Blog.prototype.scrollUp = function() {

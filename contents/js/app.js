@@ -14,7 +14,8 @@ requirejs.config({
         'jquery.jrumble': 'libs/jquery.jrumble',
         'jquery.scrollTo': '//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.3/jquery.scrollTo.min',
         'jquery.isotope': '//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min',
-        'jquery.fancybox': '//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.pack'
+        'jquery.fancybox': '//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.pack',
+        'prism': 'libs/prism'
     },
     shim: {
         'jquery.easing': {
@@ -85,11 +86,14 @@ requirejs.config({
                 	}
                 });
             }
+        },
+        'prism': {
+            exports: 'Prism'
         }
     }
 });
 
-define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'portfolio', 'hypercomments', 'libs/jquery.ascensor', 'jquery.slabText', 'jquery.jrumble'], function ($, _, hasher, crossroads, Blog, Archive, Portfolio) {
+define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'portfolio', 'contact', 'hypercomments', 'libs/jquery.ascensor', 'jquery.slabText', 'jquery.jrumble', 'prism'], function ($, _, hasher, crossroads, Blog, Archive, Portfolio, Contact) {
     $(document).ready(function () {
         var router = null;
         var pageClass = $('body').attr('class').split(/\s+/)[0];
@@ -100,7 +104,7 @@ define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'por
             WindowsOn: floors.split(' | ').indexOf(pageClass) + 1,
             Direction: 'chocolate',
             ChildType: 'section',
-            Easing: 'easeOutBounce',
+            Easing: 'easeOutQuint',
             Time: 2000,
             AscensorMap: '1|2 & 1|3 & 2|1 & 2|2 & 2|3',
             FloorChange: function (floor) {
@@ -193,6 +197,16 @@ define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'por
 		});
 
         var parseHash = function(newHash) {
+            if (_.isEmpty(newHash)) {
+                if (pageClass === 'post') {
+                    ascensor.setFloorByHash('post');
+                    Prism.highlightAll();
+                } else {
+                    crossroads.parse('blog');
+                }
+                return;
+            }
+
         	crossroads.parse(newHash);
         };
 
@@ -200,8 +214,6 @@ define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'por
         hasher.initialized.add(parseHash);
         hasher.changed.add(parseHash);
         hasher.init();
-
-        hasher.setHash('blog');
 
 	    if (window.location.hash && $('#fader').is(':visible')) {
 	        $('#fader').fadeOut();

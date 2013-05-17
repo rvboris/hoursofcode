@@ -17,7 +17,7 @@
     "wintersmith-data-json": "~0.0.2"
   },
   "scripts": {
-    "preinstall": "npm i -g wintersmith lodash"
+    "preinstall": "npm install -g wintersmith lodash"
   },
   "homepage": "http://hoursofcode.ru"
 }

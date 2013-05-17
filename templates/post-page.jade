@@ -17,9 +17,9 @@ block postSection
       h1.title= post.title
       time= moment(post.date, 'DD/MM/YYYY').format('D MMMM YYYY')
     - if (post.shortText)
-      section.short-text= post.shortText
+      section.short-text!= post.shortText
     - if (post.fullText)
-      section.full-text= post.fullText
+      section.full-text!= post.fullText
     .page-footer
       - if (post.topics)
         .topics
@@ -32,10 +32,9 @@ block postSection
                   | ,
       .social
         h4 Поделиться:
-        a(href="#").icon-social-Vkontakte
-        a(href="#").icon-social-twitter
-        a(href="#").icon-social-google
-        a(href="#").icon-social-facebook
+        a(href="#").icon-twitter-sign
+        a(href="#").icon-google-plus-sign
+        a(href="#").icon-facebook-sign
 
     .comments#hypercomments_widget
 

@@ -10,7 +10,9 @@ html
 
       link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.min.css')
       link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css')
+      link(rel='stylesheet', href='/css/prism.css')
       link(rel='stylesheet', href='/css/awesome.css')
+      link(rel='stylesheet', href='/css/social-foundicons.css')
       link(rel='stylesheet', href='/css/style.css')
 
   block body
@@ -19,10 +21,14 @@ html
 
     block nav
       nav#map
-        button.ascensorLink.ascensorLink1.blog Блог
-        button.ascensorLink.ascensorLink3.archive Архив
-        button.ascensorLink.ascensorLink4.portfolio Портфолио
-        button.ascensorLink.ascensorLink5.contact Контакты
+        button.ascensorLink.ascensorLink1.blog
+          i.icon-file-alt
+        button.ascensorLink.ascensorLink3.archive
+          i.icon-calendar
+        button.ascensorLink.ascensorLink4.portfolio
+          i.icon-briefcase
+        button.ascensorLink.ascensorLink5.contact
+          i.icon-envelope
   
     #ascensorBuilding
       section.blog-section
@@ -222,7 +228,18 @@ html
       section.contact-section
         .container
           block contactSection
-            | Contact page
+            header
+              h1 Контакты
+              h2 Ryabov Boris / Front-end developer
+            .row.contact-icons
+              .col-d-1-4
+                a(href="skype:R0ksar?call").foundicon-skype 
+              .col-d-1-4
+                a(href="http://twitter.com/rvboris").foundicon-twitter
+              .col-d-1-4
+                a(href="http://ru.linkedin.com/in/rvboris/").foundicon-linkedin
+              .col-d-1-4
+                a(href="http://github.com/rvboris").foundicon-github
 
     include handlebars
 
