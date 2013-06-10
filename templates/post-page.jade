@@ -6,6 +6,7 @@ block prepend body
 block postSection
   - var getPostData = function() {
   -     var post = contents.posts[page.parent.filename.split(path.sep)[1]]['data.json'].metadata;
+  -     post.url = page.parent.filename.split(path.sep)[1];
   -     delete post.template;
   -     return post;
   - }
@@ -32,9 +33,9 @@ block postSection
                   | ,
       .social
         h4 Поделиться:
-        a(href="#").icon-twitter-sign
-        a(href="#").icon-google-plus-sign
-        a(href="#").icon-facebook-sign
+        a(href='https://twitter.com/share?text=' + encodeURIComponent(post.title) + '&url=' + encodeURIComponent(locals.url + '#!/post/') + post.url, target='_blank', rel='nofollow').icon-twitter-sign
+        a(href='https://plus.google.com/share?url=' + encodeURIComponent(locals.url + '#!/post/') + post.url, target='_blank', rel='nofollow').icon-google-plus-sign
+        a(href='http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(locals.url + '#!/post/') + post.url, target='_blank', rel='nofollow').icon-facebook-sign
 
     .comments#hypercomments_widget
 

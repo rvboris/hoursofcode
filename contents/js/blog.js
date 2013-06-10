@@ -1,4 +1,4 @@
-define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo', 'prism'], function($, lodash, hasher) {
+define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePagination', 'jquery.scrollTo', 'prism'], function($, _, hasher) {
 	var Blog = function() {
 		this.options = {
 			postsPerPage: 5
@@ -8,10 +8,12 @@ define(['jquery', 'lodash', 'libs/hasher', 'handlebars', 'jquery.simplePaginatio
 		this.topicsList = null;
 		this.postsCache = null;
 
-		this.postTemplate = Handlebars.compile($('#post-template').html());
-		this.postSeparatorTemplate = Handlebars.compile($('#post-separator-template').html());
-		this.postPaginatorTemplate = Handlebars.compile($('#post-paginator-template').html());
-		this.fullPostTemplate = Handlebars.compile($('#full-post-template').html());
+		if (_.size($('#post-template')) > 0) {
+			this.postTemplate = Handlebars.compile($('#post-template').html());
+			this.postSeparatorTemplate = Handlebars.compile($('#post-separator-template').html());
+			this.postPaginatorTemplate = Handlebars.compile($('#post-paginator-template').html());
+			this.fullPostTemplate = Handlebars.compile($('#full-post-template').html());
+		}
 
 		$('.blog-section section.content').on('click', 'a.more', _.bind(function(e) {
 			e.preventDefault();

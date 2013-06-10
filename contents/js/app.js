@@ -1,6 +1,6 @@
 requirejs.config({
     paths: {
-        'jquery': '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min',
+        'jquery': '//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min',
         'lodash': '//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.1/lodash.min',
         'crossroads': '//cdnjs.cloudflare.com/ajax/libs/crossroads/0.11.0/crossroads.min',
         'signals': '//cdnjs.cloudflare.com/ajax/libs/js-signals/0.8.1/js-signals.min',
@@ -70,6 +70,10 @@ requirejs.config({
 
                 Handlebars.registerHelper('getItemByIndex', function (arr, idx) {
                     return arr[idx] || false;
+                });
+
+                Handlebars.registerHelper('encodeURL', function (str) {
+                    return encodeURIComponent(str);
                 });
 
                 Handlebars.registerHelper('debug', function(optionalValue) {
