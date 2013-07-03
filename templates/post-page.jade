@@ -5,7 +5,7 @@ block prepend body
 
 block postSection
   - var getPostData = function() {
-  -     var post = contents.posts[page.parent.filename.split(path.sep)[1]]['data.json'].metadata;
+  -     var post = contents.posts[page.parent.filename.split(path.sep)[1]]['data.json'].src;
   -     post.url = page.parent.filename.split(path.sep)[1];
   -     delete post.template;
   -     return post;
@@ -39,6 +39,6 @@ block postSection
 
     .comments#hypercomments_widget
 
-    script
+    script.
       _hcwp = window._hcwp || [];
       _hcwp.push({ widget: 'Stream', widget_id: 6177, xid: '#{post.uuid}', language: 'ru', title: '#{post.title}' });

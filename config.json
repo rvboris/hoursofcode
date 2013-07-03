@@ -6,11 +6,12 @@
         "owner": "Boris Ryabov"
     },
     "plugins": [
-        "./node_modules/wintersmith-stylus",
-        "./node_modules/wintersmith-data-json"
+            "./node_modules/wintersmith-stylus",
+            "./node_modules/wintersmith-data-json"
     ],
-    "require": [
-    	"path",
-        "lodash"
-    ]
+    "require": {
+        "path": "path",
+        "_": "lodash",
+        "moment": "moment"
+    }
 }

@@ -97,7 +97,9 @@ requirejs.config({
     }
 });
 
-define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'portfolio', 'contact', 'hypercomments', 'libs/jquery.ascensor', 'jquery.slabText', 'jquery.jrumble', 'prism'], function ($, _, hasher, crossroads, Blog, Archive, Portfolio, Contact) {
+define(['jquery', 'lodash', 'libs/hasher', 'crossroads', 'blog', 'archive', 'portfolio', 'contact', 'hypercomments', 'libs/jquery.ascensor', 'jquery.slabText', 'jquery.jrumble', 'prism'],
+    function ($, _, hasher, crossroads, Blog, Archive, Portfolio, Contact) {
+        
     $(document).ready(function () {
         var router = null;
         var pageClass = $('body').attr('class').split(/\s+/)[0];

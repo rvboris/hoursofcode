@@ -1,23 +1,29 @@
 {
   "name": "hoursofcode",
   "description": "Personal blog & Portfolio",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "keywords": [
-    "blog, portfolio"
+      "blog, portfolio"
   ],
-  "maintainers": [
-    {
+  "maintainers": [{
       "name": "Boris Ryabov",
       "email": "rv.boris@gmail.com",
       "web": "http://hoursofcode.ru"
     }
   ],
   "dependencies": {
-    "wintersmith-stylus": "~0.1.2",
-    "wintersmith-data-json": "~0.0.2"
+    "wintersmith-stylus": ">=0.3.0",
+    "wintersmith-data-json": ">=0.0.5",
+    "moment": ">=2.0.0",
+    "lodash": ">=1.3.1",
+    "grunt-contrib-clean": ">=0.4.1",
+    "grunt-contrib-compress": ">=0.5.2",
+    "grunt-sftp-deploy": ">=0.0.8",
+    "grunt-ssh": ">=0.6.0",
+    "grunt-bump": ">=0.0.7"
   },
   "scripts": {
-    "preinstall": "npm install -g wintersmith lodash"
+    "preinstall": "npm install -g wintersmith grunt-cli"
   },
   "homepage": "http://hoursofcode.ru"
 }

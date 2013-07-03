@@ -7,7 +7,7 @@
 
 - posts = _.map(contents.posts._.directories, function(post) {
 -     var postData = post['data.json'];
--     return { url: getUrlFromPath(post), date: postData.metadata.date, title: postData.metadata.title, topics: postData.metadata.topics }
+-     return { url: getUrlFromPath(post), date: postData.src.date, title: postData.src.title, topics: postData.src.topics }
 - });
 
 - var topics = _.reduce(posts, function(topics, post) {

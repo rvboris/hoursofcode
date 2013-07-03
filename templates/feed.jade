@@ -1,4 +1,4 @@
-- var posts = _.chain(contents.posts._.directories).map(function(post) { return post['data.json'] }).sortBy(function(post) { return -moment(post.metadata.date, 'DD/MM/YYYY').unix() }).value();
+- var posts = _.chain(contents.posts._.directories).map(function(post) { return post['data.json'] }).sortBy(function(post) { return -moment(post.src.date, 'DD/MM/YYYY').unix() }).value();
 
 doctype xml
 rss(version='2.0',
@@ -11,14 +11,14 @@ rss(version='2.0',
     atom:link(href=locals.url + '/feed.xml', rel='self', type='application/rss+xml')
     link= locals.url
     description= locals.description
-    pubDate= moment(posts[0].metadata.date, 'DD/MM/YYYY').format('ddd, DD MMM YYYY HH:mm:ss ZZ')
+    pubDate= moment(posts[0].src.date, 'DD/MM/YYYY').format('ddd, DD MMM YYYY HH:mm:ss ZZ')
     language ru
     each post in posts
       - var permalink = locals.url + '/' + path.dirname(post.filename).replace(path.sep, '/') + '/';
       item
-        title= post.metadata.title
+        title= post.src.title
         link= permalink
-        pubDate= moment(post.metadata.date, 'DD/MM/YYYY').format('ddd, DD MMM YYYY HH:mm:ss ZZ')
+        pubDate= moment(post.src.date, 'DD/MM/YYYY').format('ddd, DD MMM YYYY HH:mm:ss ZZ')
         guid(isPermaLink='true')= permalink
         author= locals.owner
-        description= post.metadata.shortText
+        description= post.src.shortText
