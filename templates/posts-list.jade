@@ -1,0 +1,17 @@
+- var posts, topics, result;
+
+- posts = _.chain(contents.posts._.directories).map(function(post) { return post['data.json'] }).sortBy(function(post) { return -moment(post.src.date, 'DD/MM/YYYY').unix() }).value();
+- topics = _.reduce(posts, function(topics, post) {
+-     return topics.concat(post.src.topics || []);
+- }, []);
+
+- if (_.size(topics) > 0) topics = _.uniq(topics);
+
+- result = { topics: topics, posts: [] };
+- result.posts = _.map(posts, function(post) {
+-     var topicsIndex = [];
+-     if (post.src.topics) topicsIndex = _.map(post.src.topics, function(topic) { return _.indexOf(topics, topic) });
+-     return [ '/' + path.dirname(post.filename).replace(path.sep, '/'), topicsIndex ];
+- });
+
+!=JSON.stringify(result)

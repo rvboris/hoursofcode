@@ -1,0 +1,44 @@
+extends layout
+
+block prepend body
+  body(style='overflow:hidden').post
+
+block postSection
+  - var getPostData = function() {
+  -     var post = contents.posts[page.parent.filename.split(path.sep)[1]]['data.json'].src;
+  -     post.url = page.parent.filename.split(path.sep)[1];
+  -     delete post.template;
+  -     return post;
+  - }
+  - var post = getPostData();
+  - moment.lang('ru');
+
+  section.content
+    header
+      h1.title= post.title
+      time= moment(post.date, 'DD/MM/YYYY').format('D MMMM YYYY')
+    - if (post.shortText)
+      section.short-text!= post.shortText
+    - if (post.fullText)
+      section.full-text!= post.fullText
+    .page-footer
+      - if (post.topics)
+        .topics
+          h4 Темы:
+          ul
+            each topic, i in post.topics
+              li
+                a(href='#!/blog/topic/' + topic)= topic
+                - if (i < post.topics.length - 1)
+                  | ,
+      .social
+        h4 Поделиться:
+        a(href='https://twitter.com/share?text=' + encodeURIComponent(post.title) + '&url=' + encodeURIComponent(locals.url + '#!/post/') + post.url, target='_blank', rel='nofollow').icon-twitter-sign
+        a(href='https://plus.google.com/share?url=' + encodeURIComponent(locals.url + '#!/post/') + post.url, target='_blank', rel='nofollow').icon-google-plus-sign
+        a(href='http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(locals.url + '#!/post/') + post.url, target='_blank', rel='nofollow').icon-facebook-sign
+
+    .comments#hypercomments_widget
+
+    script.
+      _hcwp = window._hcwp || [];
+      _hcwp.push({ widget: 'Stream', widget_id: 6177, xid: '#{post.uuid}', language: 'ru', title: '#{post.title}' });

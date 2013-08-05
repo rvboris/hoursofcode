@@ -1,0 +1,32 @@
+- var posts, topics;
+- var dateFormat = 'DD/MM/YYYY';
+
+- moment.lang('ru');
+
+- var getUrlFromPath = function(post) { return '/post/' + path.basename(post.filename, '.json') };
+
+- posts = _.map(contents.posts._.directories, function(post) {
+-     var postData = post['data.json'];
+-     return { url: getUrlFromPath(post), date: postData.src.date, title: postData.src.title, topics: postData.src.topics }
+- });
+
+- var topics = _.reduce(posts, function(topics, post) {
+-     return topics.concat(post.topics || []);
+- }, []);
+
+- if (_.size(topics) > 0) topics = _.uniq(topics);
+
+- posts = _.map(posts, function(post) {
+-     post.topics = _.map(post.topics, function(topic) { return _.indexOf(topics, topic) });
+-     return post;
+- });
+
+- posts = _.sortBy(posts, function(post) { return -moment(post.date, dateFormat).unix() });
+
+- posts = _.groupBy(posts, function(post) { return moment(post.date, dateFormat).format('YYYY') });
+
+- _.forEach(posts, function(postsByYear, year) {
+-     posts[year] = _.groupBy(postsByYear, function(post) { return moment(post.date, dateFormat).format('MMMM') });
+- });
+
+!= JSON.stringify({ topics: topics, posts: posts })

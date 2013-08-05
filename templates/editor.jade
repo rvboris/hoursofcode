@@ -1,0 +1,62 @@
+!!! 5
+html
+  block head
+    head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+      title Редактирование записи
+      meta(name='description', content='post editor')
+      meta(name='viewport', content='user-scalable=0,width=device-width,initial-scale=1,maximum-scale=1')
+
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css')
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css')
+      link(rel='stylesheet', href='/css/codemirror.css')
+      link(rel='stylesheet', href='/css/select2.css')
+      link(rel='stylesheet', href='/css/datepicker.css')
+
+  block body
+    .container
+      .row-fluid
+        .span12
+          h1 Редактирование записи
+
+          form
+            fieldset
+              legend Мета
+              label Заголовок
+              input(type='text')#title.input-xlarge
+              label Дата публикации
+              input(type='text')#date.input-small
+              label Темы
+              input(type='text')#topics
+              label UUID
+              input(type='text', disabled='disabled')#uuid.input-xlarge
+
+              legend Текст
+              label Краткий текст
+              textarea#short-text.short-text
+              label Полный текст
+              textarea#full-text.full-text
+
+            button(type='button')#save-post.btn.btn-large.btn-primary Сохранить
+
+    script(src='/js/libs/codemirror/codemirror.js')
+    script(src='/js/libs/codemirror/addon/edit/closebrackets.js')
+    script(src='/js/libs/codemirror/addon/edit/closetag.js')
+    script(src='/js/libs/codemirror/addon/edit/continuecomment.js')
+    script(src='/js/libs/codemirror/addon/edit/continuelist.js')
+    script(src='/js/libs/codemirror/addon/edit/matchbrackets.js')
+    script(src='/js/libs/codemirror/addon/hint/html-hint.js')
+    script(src='/js/libs/codemirror/addon/hint/javascript-hint.js')
+    script(src='/js/libs/codemirror/addon/selection/active-line.js') 
+    script(src='/js/libs/codemirror/addon/search/searchcursor.js') 
+    script(src='/js/libs/codemirror/addon/search/match-highlighter.js')  
+    script(src='/js/libs/codemirror/mode/xml/xml.js')
+    script(src='/js/libs/codemirror/mode/javascript/javascript.js')
+    script(src='/js/libs/codemirror/mode/css/css.js')
+    script(src='/js/libs/codemirror/mode/vbscript/vbscript.js')
+    script(src='/js/libs/codemirror/mode/htmlmixed/htmlmixed.js')
+    script(src='/js/libs/BlobBuilder.js')
+    script(src='/js/libs/FileSaver.js')
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js', data-main='/js/editor')

@@ -1,0 +1,246 @@
+!!! 5
+html
+  block head
+    head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+      title Blog and Portfolio
+      meta(name='description', content='')
+      meta(name='viewport', content='user-scalable=0,width=device-width,initial-scale=1,maximum-scale=1')
+
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.min.css')
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css')
+      link(rel='stylesheet', href='/css/prism.css')
+      link(rel='stylesheet', href='/css/awesome.css')
+      link(rel='stylesheet', href='/css/social-foundicons.css')
+      link(rel='stylesheet', href='/css/style.css')
+
+  block body
+    #fader(style='position:fixed;top:0;bottom:0;left:0;right:0;z-index:9999;background:#FFF')
+      .loader Пожалуйста подождите...
+
+    block nav
+      nav#map
+        button.ascensorLink.ascensorLink1.blog
+          i.icon-file-alt
+        button.ascensorLink.ascensorLink3.archive
+          i.icon-calendar
+        button.ascensorLink.ascensorLink4.portfolio
+          i.icon-briefcase
+        button.ascensorLink.ascensorLink5.contact
+          i.icon-envelope
+  
+    #ascensorBuilding
+      section.blog-section
+        .container
+          block blogSection
+            header
+              .row
+                div.col.headline
+                  h1 HoursOfCode
+              .row
+                .col.subline
+                  h2 Блог
+                  a(href='/feed.xml').icon-social-RSS
+            section.content
+            include main-footer
+      section.post-section
+        .container
+          header
+            .row
+              div.col.headline
+                h1 HoursOfCode
+            .row
+              .col.subline
+                h2 Блог
+                a(href='/feed.xml').icon-social-RSS
+          block postSection
+            section.content
+          include main-footer
+      section.archive-section
+        .container
+          block archiveSection
+            header
+              .row
+                div.col.headline
+                  h1 HoursOfCode
+              .row
+                .col.subline
+                  h2 Архив
+                  a(href='/feed.xml').icon-social-RSS
+            section.content
+            include main-footer
+      section.portfolio-section
+        .container
+          block portfolioSection
+            header
+              h1 Портфолио
+              h2 Ryabov Boris / Front-end developer
+            section.skills
+              div
+                h1 JS
+                ul.js
+                  li jQuery
+                  li AMD Modules, Require.js
+                  li Deploy systems Grunt & Bower 
+                  li Knockout.JS, MVVM Pattern, OOP Style
+                  li Node.js (async & fibers)
+                  li WebSockets, ES5
+              div
+                h1 HTML/CSS
+                ul.html
+                  li HTML5, Jade, Handlebars
+                  li CSS3, Stylus, LESS
+                  li Bootstrap
+                  li Responsive design
+                  li Fluid grids
+              div
+                h1 DB
+                ul.db
+                  li MySQL
+                  li Redis
+                  li MongoDB
+              div
+                h1 VCS
+                ul.vcs
+                  li Mercurial
+                  li GIT
+              div
+                h1 misc
+                ul.need
+                  li C# (WPF, DevExpress)
+                  li PHP (Zend, Yii, Doctrine)
+                  li Java, android
+              div
+                h1 etc
+                ul.use
+                  li Ubuntu, Windows
+                  li Nginx, Apache
+                  li Sphinx, ElasticSearch
+                  li Sublime Text, WebStorm, VS
+                  li Adobe Fireworks
+            section.works
+              ul.filters.g-buttons
+                li
+                  button(type='button', data-filter='*').g-button.left.active Все
+                li
+                  button(type='button', data-filter='.site').g-button.middle Сайты / Дизайн
+                li
+                  button(type='button', data-filter='.app').g-button.middle Приложения
+                li
+                  button(type='button', data-filter='.misc').g-button.right Другое
+
+              ul.works-container
+                li.site
+                  a(href='portfolio/arka/arka1.png', data-fancybox-group='arka').fancybox
+                    div.work-item.arka
+                      div.work-item-info
+                        h3 Арка
+                  a(href='portfolio/arka/arka2.png', data-fancybox-group='arka').fancybox
+
+                li.site
+                  a(href='portfolio/lookwish/lookwish1.png', data-fancybox-group='lookwish').fancybox
+                    div.work-item.lookwish
+                      div.work-item-info
+                        h3 Lookwish
+                  a(href='portfolio/lookwish/lookwish2.png', data-fancybox-group='lookwish').fancybox
+                  a(href='portfolio/lookwish/lookwish3.png', data-fancybox-group='lookwish').fancybox
+
+                li.site
+                  a(href='portfolio/hotel-sever/hotel-sever.png').fancybox
+                    div.work-item.hotel-sever
+                      div.work-item-info
+                        h3 Отель &laquo;Север&raquo;
+                li.misc
+                  a(href='portfolio/taksor-cards/taxi-card1.png', data-fancybox-group='taksor').fancybox
+                    div.work-item.taksor-cards
+                      div.work-item-info
+                        h3 Таксор.рф визитки
+                  a(href='portfolio/taksor-cards/taxi-card2.png', data-fancybox-group='taksor').fancybox
+                  a(href='portfolio/taksor-cards/taxi-card3.png', data-fancybox-group='taksor').fancybox
+
+                li.site
+                  a(href='portfolio/rbs-creative4/rbs-creative4.png').fancybox
+                    div.work-item.rbs-creative4
+                      div.work-item-info
+                        h3 rbs-creative v4
+                li.site
+                  a(href='portfolio/rnames/rnames.png').fancybox
+                    div.work-item.rnames
+                      div.work-item-info
+                        h3 RNames
+                li.app
+                  a(href='portfolio/womansecrets/womansecrets.png').fancybox
+                    div.work-item.womansecrets
+                      div.work-item-info
+                        h3 Woman Secrets
+                li.site
+                  a(href='portfolio/rbs-creative3/rbs-creative3.png').fancybox
+                    div.work-item.rbs-creative3
+                      div.work-item-info
+                        h3 rbs-creative v3
+                li.app
+                  a(href='portfolio/octanis/octanis1.png', data-fancybox-group='octanis').fancybox
+                    div.work-item.octanis
+                      div.work-item-info
+                        h3 Octanis
+                  a(href='portfolio/octanis/octanis2.png', data-fancybox-group='octanis').fancybox
+                  a(href='portfolio/octanis/octanis3.png', data-fancybox-group='octanis').fancybox
+                  a(href='portfolio/octanis/octanis4.png', data-fancybox-group='octanis').fancybox
+
+                li.site
+                  a(href='portfolio/taksor/taksor.png').fancybox
+                    div.work-item.taksor
+                      div.work-item-info
+                        h3 Таксор.рф
+                li.app
+                  a(href='portfolio/gibdd/gibdd1.png', data-fancybox-group='gibdd').fancybox
+                    div.work-item.gibdd
+                      div.work-item-info
+                        h3 База ГИБДД
+                  a(href='portfolio/gibdd/gibdd2.png', data-fancybox-group='gibdd').fancybox
+
+                li.site
+                  a(href='portfolio/rbs-creative1/rbs-creative1.png').fancybox
+                    div.work-item.rbs-creative1
+                      div.work-item-info
+                        h3 rbs-creative v1
+                li.site
+                  a(href='portfolio/rbs-creative2/rbs-creative2.png').fancybox
+                    div.work-item.rbs-creative2
+                      div.work-item-info
+                        h3 rbs-creative v2
+                li.site
+                  a(href='portfolio/oasis/oasis.png').fancybox
+                    div.work-item.oasis
+                      div.work-item-info
+                        h3 Oasis
+                li.app
+                  a(href='portfolio/engec-reader/engec-reader.png').fancybox
+                    div.work-item.e-reader
+                      div.work-item-info
+                        h3 E-Reader
+                li.site
+                  a(href='portfolio/iluck/iluck.png').fancybox
+                    div.work-item.iluck
+                      div.work-item-info
+                        h3 iLuck
+      section.contact-section
+        .container
+          block contactSection
+            header
+              h1 Контакты
+              h2 Ryabov Boris / Front-end developer
+            .row.contact-icons
+              .col-d-1-4
+                a(href="skype:R0ksar?call").foundicon-skype 
+              .col-d-1-4
+                a(href="http://twitter.com/rvboris").foundicon-twitter
+              .col-d-1-4
+                a(href="http://ru.linkedin.com/in/rvboris/").foundicon-linkedin
+              .col-d-1-4
+                a(href="http://github.com/rvboris").foundicon-github
+
+    include handlebars
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js', data-main='/js/app')

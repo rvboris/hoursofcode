@@ -1,0 +1,102 @@
+script(type='text/x-handlebars-template')#post-template
+  article.row
+    .col-d-4-5.col-t-2-3.col-p-5-5.left
+      .wrap
+        h1 {{post.title}}
+        .text
+          | {{{post.shortText}}}
+          | {{#if post.fullText}}
+          a(href='{{url}}').more Подробнее...
+          | {{/if}}
+    .col-d-1-5.col-t-1-3.right
+      .wrap
+        time
+          .day {{moment post.date 'DD'}}
+          .month {{moment post.date 'MMM'}}
+          .year-wrap
+            .year {{moment post.date 'YYYY'}}
+        .comments
+          a(href='#!/post/{{getPostNameFromUrl url}}', data-xid='{{post.uuid}}').comments-count Комментарии
+
+        {{#if post.topics}}
+        .topics
+          h4 Темы
+          ul
+            | {{#each post.topics}}
+            li
+              a(href='#!/blog/topic/{{this}}') {{this}}
+              | {{#notLast ../post.topics this}}
+              span ,
+              | {{/notLast}}
+            | {{/each}}
+        {{/if}}
+
+        .social
+          h4 Поделиться
+          a(href='https://twitter.com/share?text={{encodeURL post.title}}&url=' + encodeURIComponent(locals.url + '#!/post/') + '{{getPostNameFromUrl url}}', target='_blank', rel='nofollow').icon-twitter-sign
+          a(href='https://plus.google.com/share?url=' + encodeURIComponent(locals.url + '#!/post/') + '{{getPostNameFromUrl url}}', target='_blank', rel='nofollow').icon-google-plus-sign
+          a(href='https://www.facebook.com/sharer.php?u=' + encodeURIComponent(locals.url + '#!/post/') + '{{getPostNameFromUrl url}}', target='_blank', rel='nofollow').icon-facebook-sign
+
+script(type='text/x-handlebars-template')#post-separator-template
+  hr.separator
+
+script(type='text/x-handlebars-template')#post-paginator-template
+  .paginator
+
+script(type='text/x-handlebars-template')#full-post-template
+  header
+    h1.title {{post.title}}
+    time {{moment post.date 'D MMMM YYYY'}}
+    | {{#if post.shortText}}
+    section.short-text {{{post.shortText}}}
+    | {{/if}}
+    | {{#if post.fullText}}
+    section.full-text {{{post.fullText}}}
+    | {{/if}}
+  .page-footer
+    | {{#if post.topics}}
+    .topics
+      h4 Темы:
+      ul
+        | {{#each post.topics}}
+        li
+          a(href='#!/blog/topic/{{this}}') {{this}}
+          | {{#notLast ../post.topics this}}
+          span ,
+          | {{/notLast}}
+        | {{/each}}
+    | {{/if}}
+    .social
+      h4 Поделиться:
+      a(href='https://twitter.com/share?text={{encodeURL post.title}}&url=' + encodeURIComponent(locals.url + '#!/post/') + '{{getPostNameFromUrl url}}', target='_blank', rel='nofollow').icon-twitter-sign
+      a(href='https://plus.google.com/share?url=' + encodeURIComponent(locals.url + '#!/post/') + '{{getPostNameFromUrl url}}', target='_blank', rel='nofollow').icon-google-plus-sign
+      a(href='https://www.facebook.com/sharer.php?u=' + encodeURIComponent(locals.url + '#!/post/') + '{{getPostNameFromUrl url}}', target='_blank', rel='nofollow').icon-facebook-sign
+
+  .comments#hypercomments_widget
+
+script(type='text/x-handlebars-template')#archive-template
+  ol.years
+    | {{#each this.posts}}
+    li.year
+      h1 {{@key}}
+      ol.months
+        | {{#each this}}
+        li.month
+          h2 {{@key}}
+          ol.posts
+            | {{#each this}}
+            li.post
+              a(href='#!' + '{{this.url}}') {{this.title}}
+              ul.topics
+                span (
+                | {{#each this.topics}}
+                li.topic
+                  a(href='#!/blog/topic/{{getItemByIndex ../../../../topics @index }}') {{getItemByIndex ../../../../topics @index }}
+                  | {{#notLast ../topics this}}
+                  span ,
+                  | {{/notLast}}
+                | {{/each}}
+                span )
+            | {{/each}}
+        | {{/each}}
+    | {{/each}}
