@@ -44,7 +44,7 @@ module.exports = function (grunt) {
         compress: {
             main: {
                 options: {
-                    archive: 'deploy/hoursofcode.ru-' + version() + '.zip'
+                    archive: 'deploy/<%= deploy.host %>-' + version() + '.zip'
                 },
                 files: [
                     { expand: true, cwd: './public', src: ['**'] }

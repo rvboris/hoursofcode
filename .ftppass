@@ -1,6 +1,6 @@
 {
   "main": {    
-    "username": "root",
+    "username": "deploy",
     "passphrase": "",
     "keyLocation": "deploy/key.pem"
   }
