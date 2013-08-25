@@ -1,5 +1,5 @@
 {
 	"host": "hoursofcode.ru",
-	"username": "root",
+	"username": "deploy",
 	"root": "/srv/hoursofcode.ru"
 }
