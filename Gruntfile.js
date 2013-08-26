@@ -67,8 +67,10 @@ module.exports = function (grunt) {
 
         sshexec: {
             backup: {
-                command: 'mkdir -p <%= deploy.root %>/backups/' + now +
-                         ' && cp -r <%= deploy.root %>/public <%= deploy.root %>/backups/' + now,
+                command: [
+                    'mkdir -p <%= deploy.root %>/backups/' + now,
+                    'cp -r <%= deploy.root %>/public <%= deploy.root %>/backups/' + now
+                ].join(' && '),
                 options: '<%= sshAuth %>'
             },
             clean: {
